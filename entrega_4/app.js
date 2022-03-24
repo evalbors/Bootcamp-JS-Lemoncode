@@ -1,5 +1,6 @@
-let a = document.getElementById("first");
-let b = document.getElementById("second");
+let getNumber = (inputId) => Number(document.getElementById(inputId).value);
+// Number pasa el string a número para que puedan ser sumados
+// value recoge el valor q introducimos en el input
 
 function suma(a, b){
     let result = a + b;
@@ -18,23 +19,19 @@ function division(a, b){
     return result
 }
 
-console.log(suma(1,2));
-console.log(resta(4,2));
-console.log(multiplicacion(4,2));
-console.log(division(4,2));
-
-// me falta conectar los inputs introducidos con 'a' y 'b'
-
-let resultado_suma = document.getElementById("boton-suma").addEventListener("click", suma);
-let resultado_resta = document.getElementById("boton-resta").addEventListener("click", resta);
-let resultado_multiplicacion = document.getElementById("boton-multiplicacion").addEventListener("click", multiplicacion);
-let resultado_division = document.getElementById("boton-division").addEventListener("click", division);
-
-
-
-document.getElementById("result").innerText = resultado_suma;
-document.getElementById("result").innerText = resultado_resta;
-
-
-
- 
+let resultSuma = () => {
+   document.getElementById('result').innerHTML = suma(getNumber('first'),getNumber('second'));
+}
+let resultResta = () => {
+    document.getElementById('result').innerHTML = resta(getNumber('first'),getNumber('second'));
+}
+let resultMultiplicacion = () => {
+    document.getElementById('result').innerHTML = multiplicacion(getNumber('first'),getNumber('second'));
+ }
+ let resultDivision = () => {
+     document.getElementById('result').innerHTML = division(getNumber('first'),getNumber('second'));
+ }
+document.getElementById('boton-suma').addEventListener('click', () => resultSuma());
+document.getElementById('boton-resta').addEventListener('click', () => resultResta());
+document.getElementById('boton-multiplicacion').addEventListener('click', () => resultMultiplicacion());
+document.getElementById('boton-division').addEventListener('click', () => resultDivision());

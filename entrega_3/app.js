@@ -1,13 +1,12 @@
 const product = { count: 3, price: 10, type: "comida" };
 
-const zero = product.count <= 0;
 const total = product.count * product.price;
+
+const zero = product.count <= 0;
 
 const isFood = product.type === "comida";
 const isBook = product.type === "libro";
-const isClothes= product.type === "ropa";
-
-// el añadir product.algo me fasticia todo, así que he hechos estas const
+const isClothes = product.type === "ropa";
 
 // Calcular precio total con iva
 let totalPrice = () => {
