@@ -1,0 +1,54 @@
+body{
+    padding: 40px;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+}
+
+#list li .number-box{
+    width: 40px;
+    margin-left: 20px;
+    height: 24px;
+    text-align: right;
+}
+#list li{
+    text-align: right;
+    width: 300px;
+    padding: 5px;
+}
+
+#list li input{
+   right: 0;
+}
+
+#button{
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 4px;
+    background-color:cadetblue;
+    width: 350px;
+    color: white;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+}
+#button:hover{
+    background-color:rgb(49, 82, 83);
+}
+#result{
+    width: 360px;
+    padding-top: 30px;
+    text-align: left;
+}
+#result>div{
+    padding-bottom: 10px;
+
+}
+#result div span{
+    float: right;
+    font-weight: bold;
+}
+.price-text{
+    font-family: 32px;
+    font-weight: bold;
+    padding-left: 20px;
+}

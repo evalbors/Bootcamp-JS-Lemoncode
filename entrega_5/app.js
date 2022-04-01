@@ -76,3 +76,51 @@ for (object of carrito){
         console.log("✓ " + object.name)
     }
 }
+
+console.log("------------------------");
+
+
+// 6. Si todos los productos son prime que diga "Gastos de envió cero", si no "Con gastos de envío.
+console.log( "6. Info envío: ")
+
+if (carrito[0].premium && carrito[1].premium && carrito[2].premium){
+    console.log( "Gastos de envió cero")
+}
+console.log( "Con gastos de envío")
+ 
+
+/* for (object of carrito)
+
+if (!carrito[i].premium){
+    console.log( "Con gastos de envío")
+}
+else{
+    console.log( "Con gastos de envío")
+
+} */
+
+console.log("------------------------");
+
+
+// 7. Mostrar el carrito en un listado de html básico.
+let list = document.getElementById('shopping-list');
+let first = document.getElementById('first');
+let second = document.getElementById('second');
+let thrid = document.getElementById('thrid');
+
+console.log(carrito[0].name);
+
+document.getElementById('first').innerHTML.carrito[0].name;
+document.getElementById('second').innerHTML.carrito[1].name;
+document.getElementById('thrid').innerHTML.carrito[2].name;
+
+
+// 8. Aplicar un descuento del 5% si la compra es mayor de 100 €.
+function applyDiscount() {
+    if (total > 100){
+    return total - (total*0.5);
+    }
+
+    return total;
+}
+console.log("8. Total applying discount: " + applyDiscount());
