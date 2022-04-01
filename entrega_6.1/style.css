@@ -45,10 +45,13 @@ body{
 }
 #result div span{
     float: right;
-    font-weight: bold;
 }
 .price-text{
     font-family: 32px;
     font-weight: bold;
     padding-left: 20px;
+}
+
+#total-result{
+    font-size: 20px;
 }

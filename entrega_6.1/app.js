@@ -89,54 +89,42 @@ const showProducts = productList => {
 }
 showProducts(products);
 
-// recojo en valor y lo paso a número
-const getSubtotal = (e) => {
-    console.log(e);
+const getSubtotal = (element) => {
+   
     let subtotal = 0; // siempre mejor inicializar que no darle ningún valor
-    for (var i = 0; i < e.length; i++){
-        subtotal += parseInt(e[i].price) * parseInt(e[i].units);
+    for (var i = 0; i < element.length; i++){
+        subtotal += element[i].price * element[i].units;
+        console.log(subtotal);
     }
     // otra manera:
-    /* for (product of e){
-        subtotal += parseInt(product.price) * parseInt(product.units);
+    /* for (element of elements){
+        subtotal += parseInt(element.price) * parseInt(element.units);
     } */
     return subtotal;
 }
-
-// una función dentro de otra
-let getIva = (cosa) => {
+const getIva = (element) => {
     let iva = 0;
-    for (var i = 0; i < cosa.length; i++){
-        let subtotal = parseInt(cosa[i].price) * parseInt(cosa[i].units);
-        iva += subtotal * cosa[i].tax / 100;
+    for (var i = 0; i < element.length; i++){
+        let subtotal = element[i].price * element[i].units;
+        iva += subtotal * element[i].tax / 100;
     }
     return iva;
 }
+const getTotal = (element) => getSubtotal(element)+ getIva(element);
 
 /// console.log(getSubtotal()); esto no fucionaría, solo funcionaría si quitamos la e como parametro inicial y pusieramos products en cada e siguiente
 // console.log(getSubtotal(products));
 
+// crear 3 funciones y activarlas dentro de una
+let showResults = () => {
+    document.getElementById("subtotal-result").innerHTML = getSubtotal(products);
+    document.getElementById("iva-result").innerHTML = getIva(products);
+    document.getElementById("total-result").innerHTML = getTotal(products);
+}
 
 // Evento al clicar el botón
 let button = document.getElementById("button")
-button.addEventListener("click", calculateSubtotal(products));
-
-// Función que se activa al clicar el botón
-function calculateSubtotal(){
-    document.getElementById("subtotal-result").innerHTML = getSubtotal(products);
-}
-
-function calculateTotal(){
-    return getSubtotal()+ getIva();
-}
-
-// crear 3 funciones y activarlas dentro de una
-/* function showResults() {
-    document.getElementById("subtotal-result").innerHTML = getSubtotal(products);
-    document.getElementById("iva-result").innerHTML = getIva(products);
-    document.getElementById("total-result").innerHTML = calculateTotal(products);
-}
- */
+button.addEventListener("click", () => showResults(products));
 
 
 // Otra manera de hacer lo del iva.
