@@ -85,31 +85,26 @@ if (carrito[0].premium && carrito[1].premium && carrito[2].premium) {
 }
 console.log('Con gastos de envío');
 
-/* for (object of carrito)
-
-if (!carrito[i].premium){
-    console.log( "Con gastos de envío")
-}
-else{
-    console.log( "Con gastos de envío")
-
-} */
-
 console.log('------------------------');
-
-let first = document.getElementById('first');
-let second = document.getElementById('second');
-let thrid = document.getElementById('thrid');
-
-first.innerHTML = carrito[0].name;
-second.innerHTML = carrito[1].name;
-thrid.innerHTML = carrito[2].name;
 
 // 7. Mostrar el carrito en un listado de html básico.
 
-for (product in carrito) {
-  console.log(carrito[product].name);
+function printList(something) {
+  //identify my list to contain the items
+  let list = document.getElementById('shopping-list');
+  // pass for every element from the object
+  for (element of something) {
+    //create one li
+    let itemList = document.createElement('li');
+    //add content
+    itemList.innerHTML = element.name;
+    // add to the container list
+    list.appendChild(itemList);
+  }
 }
+
+printList(carrito);
+console.log('👉🏻 7. Mostrar el carrito en un listado: ver el html');
 
 console.log('------------------------');
 
