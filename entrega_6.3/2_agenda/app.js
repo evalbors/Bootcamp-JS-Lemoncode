@@ -41,15 +41,18 @@ var showAvailabilityForHour = (obj, arr) => {
   var availabilityForHour = '';
   var availabilityForPerson = '';
 
-  for (var i = 0; i <= obj.length; i++) {
-    var employee = 'nombre';
+  // bucle externo en el objeto Team
+  for (var i = 0; i <= obj.length - 1; i++) {
+    var employee = '\n' + 'nombre' + '\n';
+    // quiero que me pinte cada name de cada empleado con obj[i][0] no funciona????
     // var employee = obj[i][0];
 
+    // bucle interno en el array availability
     for (var j = 0; j <= arr.length - 1; j++) {
       availabilityForHour += arr[j] + ' → ' + randomAvailabilityHour() + '\n';
     }
 
-    availabilityForPerson = employee + '\n' + availabilityForHour + '\n';
+    availabilityForPerson += employee + '\n' + availabilityForHour + '\n';
   }
 
   return availabilityForPerson;
