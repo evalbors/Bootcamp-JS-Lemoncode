@@ -28,26 +28,20 @@ var myTeam = [
   },
 ];
 
-// 0. Disponibilidad asignada de manera aleatoria
+// 1. Iterar por el array de myTeam y asignarle a cada array de
+// availability true o false dependiendo de un boleano ✅
 var randomAvailabilityHour = () => (Math.random() < 0.5 ? true : false);
-// console.log(randomAvailabilityHour());
 
 console.log('------- 1. Generación aleatoria de la disponibilidad');
 
-// 1. Iterar por el array de myTeam y asignarle a cada array de
-// availability true o false dependiendo de un boleamo
-
+// 2. Mostrar cada rango horario con si o no de cada trabajador ✅
 var showAvailabilityForHour = (obj, arr) => {
-  var availabilityForHour = '';
   var availabilityForPerson = '';
 
-  // bucle externo en el objeto Team
   for (var i = 0; i <= obj.length - 1; i++) {
-    var employee = '\n' + 'nombre' + '\n';
-    // quiero que me pinte cada name de cada empleado con obj[i][0] no funciona????
-    // var employee = obj[i][0];
+    var availabilityForHour = '';
+    var employee = obj[i]['name'];
 
-    // bucle interno en el array availability
     for (var j = 0; j <= arr.length - 1; j++) {
       availabilityForHour += arr[j] + ' → ' + randomAvailabilityHour() + '\n';
     }
@@ -59,3 +53,17 @@ var showAvailabilityForHour = (obj, arr) => {
 };
 
 console.log(showAvailabilityForHour(myTeam, workHours));
+
+// 2. Recorer myTeam y ver cual rango horario está a true en los
+// trabajadores y decir que ese rango horario es el que está libre
+
+var meeting = (obj, arr) => {
+  for (var i = 0; i <= obj.length - 1; i++) {
+    for (var j = 0; j <= arr.length - 1; j++) {
+      if (arr[j] === true) console.log('We have a time of meeting');
+      else console.log('We have not time available');
+    }
+  }
+};
+
+meeting((myTeam, workHours));
