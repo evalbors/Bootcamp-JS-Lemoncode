@@ -1,4 +1,4 @@
-const workHours = [
+var WORK_HOURS = [
   '08:00 - 09:00',
   '09:00 - 10:00',
   '10:00 - 11:00',
@@ -28,42 +28,49 @@ var myTeam = [
   },
 ];
 
-// 1. Iterar por el array de myTeam y asignarle a cada array de
-// availability true o false dependiendo de un boleano ✅
-var randomAvailabilityHour = () => (Math.random() < 0.5 ? true : false);
+console.log('1. Generación aleatoria de la disponibilidad');
+// importante poner () => para que sera una función anónima pero que recibe algo y ejecuta la función
+var random_availability = () => Math.random() < 0.5;
 
-console.log('------- 1. Generación aleatoria de la disponibilidad');
+var availability_team = (obj, arr) => {
+  var availability_person = ' ';
 
-// 2. Mostrar cada rango horario con si o no de cada trabajador ✅
-var showAvailabilityForHour = (obj, arr) => {
-  var availabilityForPerson = '';
-
-  for (var i = 0; i <= obj.length - 1; i++) {
-    var availabilityForHour = '';
+  for (i = 0; i < obj.length; i++) {
+    // console.log(i); // imprime el numero de trabajadores
     var employee = obj[i]['name'];
+    var availability_hours = '';
 
-    for (var j = 0; j <= arr.length - 1; j++) {
-      availabilityForHour += arr[j] + ' → ' + randomAvailabilityHour() + '\n';
+    for (j = 0; j < arr.length; j++) {
+      // console.log(j); // imprime las 8 franjas de cada trabajador
+      availability_hours += arr[j] + ' → ' + random_availability() + '\n';
+      obj[i].availability[j] = random_availability();
     }
-
-    availabilityForPerson += employee + '\n' + availabilityForHour + '\n';
+    availability_person += employee + '\n' + availability_hours + '\n';
   }
-
-  return availabilityForPerson;
+  return availability_person;
 };
 
-console.log(showAvailabilityForHour(myTeam, workHours));
+console.log(availability_team(myTeam, WORK_HOURS));
+console.log(myTeam);
 
-// 2. Recorer myTeam y ver cual rango horario está a true en los
-// trabajadores y decir que ese rango horario es el que está libre
+var meeting_time = (obj) => {
+  var filtered_array = [];
 
-var meeting = (obj, arr) => {
-  for (var i = 0; i <= obj.length - 1; i++) {
-    for (var j = 0; j <= arr.length - 1; j++) {
-      if (arr[j] === true) console.log('We have a time of meeting');
-      else console.log('We have not time available');
+  for (i = 0; i < obj.length; i++) {
+    for (j = 0; j < obj[i].availability.length; j++) {
+      if (obj[i].availability[j] === true) {
+        filtered_array.push(j);
+      }
     }
   }
+
+  for (var k = 0; k < 8; k++) {
+    const same_index = filtered_array.filter((element) => k === element);
+
+    if (same_index.length === 4)
+      return 'The meetting will be at ' + WORK_HOURS[k];
+  }
+  return 'There is not availability.';
 };
 
-meeting((myTeam, workHours));
+console.log(meeting_time(myTeam));
