@@ -13,10 +13,16 @@ var vuelta = (importe_total, pago_cliente) => {
 console.log(
   '1. Calcular la diferencia para saber cuánto debemos devolver: 48 euros',
 );
-// console.log(vuelta(200, 152)); // devolución: 48€
+console.log('La devolución es de ' + vuelta(200, 152) + '€'); // devolución: 48€
+console.log('------------------------------------------');
 
 var calculo_vuelta_cambio = (importe_total, pago_cliente, arr) => {
   var vuelta = importe_total - pago_cliente;
+
+  console.log(
+    '2. Mostrar la cantidad de billetes y monedas de cada tipo que debemos devolver:',
+  );
+  console.log('La máquina devuelve ');
 
   for (i = 0; i < arr.length; i++) {
     var check = vuelta / arr[i];
@@ -26,9 +32,8 @@ var calculo_vuelta_cambio = (importe_total, pago_cliente, arr) => {
       var devolucion = '';
       devolucion = vuelta - Math.floor(check) * arr[i];
       vuelta = devolucion;
-      result += 'devuelve ' + Math.floor(check) + ' de ' + arr[i] + '€';
-      console.log('devuelve ' + Math.floor(check) + ' de ' + arr[i] + '€');
-      console.log('------');
+      result += Math.floor(check) + ' de ' + arr[i] + '€';
+      console.log('- ' + Math.floor(check) + ' de ' + arr[i] + '€');
     }
     result += result + '\n';
   }
