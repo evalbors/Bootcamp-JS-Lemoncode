@@ -13,7 +13,8 @@ var vuelta = (importe_total, pago_cliente) => {
 console.log(
   '1. Calcular la diferencia para saber cuánto debemos devolver: 48 euros',
 );
-console.log('La devolución es de ' + vuelta(200, 152) + '€'); // devolución: 48€
+console.log('La devolución es de ' + vuelta(200, 152) + '€');
+// devolución: 48€
 console.log('------------------------------------------');
 
 var calculo_vuelta_cambio = (importe_total, pago_cliente, arr) => {
@@ -22,48 +23,19 @@ var calculo_vuelta_cambio = (importe_total, pago_cliente, arr) => {
   console.log(
     '2. Mostrar la cantidad de billetes y monedas de cada tipo que debemos devolver:',
   );
-  console.log('La máquina devuelve ');
-
+  console.log('La máquina devuelve:');
+  var result = '';
   for (i = 0; i < arr.length; i++) {
     var check = vuelta / arr[i];
-    var result = '';
 
     if (check >= 1) {
       var devolucion = '';
       devolucion = vuelta - Math.floor(check) * arr[i];
       vuelta = devolucion;
-      result += Math.floor(check) + ' de ' + arr[i] + '€';
-      console.log('- ' + Math.floor(check) + ' de ' + arr[i] + '€');
+      result += '- ' + Math.floor(check) + ' de ' + arr[i] + '€' + '\n';
     }
-    result += result + '\n';
   }
-
   return result;
 };
 
 console.log(calculo_vuelta_cambio(200, 152, cambio));
-
-/*
-200€ -152€
-48€
-
-48€ / 20€ = 2.4 billetes
-
-48€ - 2 billetes de 20€
-8€
-
-8€ / 5€ = 1.6 billetes
-
-8€ -  1 billete de 5€
-3€
-
-3€ / 2€ = 1 monedas de 2€
-
-3€ -  2€
-1€
-
-1€ / 1€ = 1 monedas de 1€
-
-1€ -  1€
-0
- */
