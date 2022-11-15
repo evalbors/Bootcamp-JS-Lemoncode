@@ -5,18 +5,64 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculadora de cambio óptimo de billetes y monedas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
-    <div>
-      <input type="number" name="" id="" placeholder="importe total" />
-    </div>
-    <br />
-    <div>
-      <input type="number" name="" id="" placeholder="cantidad entregada" />
-    </div>
-    <br />
-    <div>
-      <button>Calcular</button>
+  <body class="bg-slate-200">
+    <div class="container mx-8 my-8">
+      <h1 class="text-3xl font-bold">Calculadora</h1>
+      <br />
+
+      <div>
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="username"
+        >
+          Importe total
+        </label>
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          type="number"
+          id="importe_total"
+          placeholder="importe total"
+        />
+      </div>
+      <br />
+      <div>
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="username"
+        >
+          Cantidad entregada
+        </label>
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          type="number"
+          id="pago_cliente"
+          placeholder="cantidad entregada"
+        />
+      </div>
+
+      <br />
+      <div>
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          id="calcular"
+        >
+          Calcular
+        </button>
+      </div>
+
+      <br />
+      <br />
+      <div class="container">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="username"
+        >
+          Resultado
+        </label>
+        <ul id="resultado"></ul>
+      </div>
     </div>
   </body>
 </html>

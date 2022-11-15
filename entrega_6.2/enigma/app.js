@@ -1,21 +1,25 @@
 var plainAlphabet = "abcdefghijklmnopqrstuvwxyz:()!¡,'";
 var encryptedAlphabet = "qw,ert(yuio'pa:sdfg!hjklz¡xcv)bnm";
 
-
 var encritp = (text, alphabet1, alphabet2, targetId) => {
-    let letterTranslate = '';
-    console.log(text);
-    for (var i = 0; i < text.length; i++){
-        let indexLetter = alphabet1.indexOf(text[i])
-        indexLetter != -1 ? letterTranslate += alphabet2[indexLetter] : letterTranslate += text[i];        
-    }
-    document.getElementById(targetId).value = letterTranslate;
-}
+  let letterTranslate = '';
+  console.log(text);
+  for (var i = 0; i < text.length; i++) {
+    let indexLetter = alphabet1.indexOf(text[i]);
+    indexLetter != -1
+      ? (letterTranslate += alphabet2[indexLetter])
+      : (letterTranslate += text[i]);
+  }
+  document.getElementById(targetId).value = letterTranslate;
+};
 
+let myText = () => document.getElementById('original').value; // Función para que sea un valor dinámico
 
-let myText = () => document.getElementById("original").value; // Función para que sea un valor dinámico
-document.getElementById("encriptar").addEventListener('click', () => encritp(myText(), plainAlphabet, encryptedAlphabet, 'encriptado' ));
-
+document
+  .getElementById('encriptar')
+  .addEventListener('click', () =>
+    encritp(myText(), plainAlphabet, encryptedAlphabet, 'encriptado'),
+  );
 
 /* var desencritp = (text) => {
     let letterTranslate = '';
@@ -33,10 +37,12 @@ document.getElementById("encriptar").addEventListener('click', () => encritp(myT
 }
  */
 
-let myTextEncripted = () => document.getElementById("encriptado").value; // Función para que sea un valor dinámico
-document.getElementById("desencriptar").addEventListener('click', () => encritp(myTextEncripted(),encryptedAlphabet, plainAlphabet,'original'));
+let myTextEncripted = () => document.getElementById('encriptado').value; // Función para que sea un valor dinámico
+document
+  .getElementById('desencriptar')
+  .addEventListener('click', () =>
+    encritp(myTextEncripted(), encryptedAlphabet, plainAlphabet, 'original'),
+  );
 
 /* console.log(encritp('hola'));
  */
-
-

@@ -17,13 +17,15 @@ console.log('La devolución es de ' + vuelta(200, 152) + '€');
 // devolución: 48€
 console.log('------------------------------------------');
 
-var calculo_vuelta_cambio = (importe_total, pago_cliente, arr) => {
+var calculo = (importe_total, pago_cliente, arr, id) => {
   var vuelta = importe_total - pago_cliente;
 
+  /*
   console.log(
     '2. Mostrar la cantidad de billetes y monedas de cada tipo que debemos devolver:',
   );
   console.log('La máquina devuelve:');
+  */
   var result = '';
   for (i = 0; i < arr.length; i++) {
     var check = vuelta / arr[i];
@@ -35,7 +37,36 @@ var calculo_vuelta_cambio = (importe_total, pago_cliente, arr) => {
       result += '- ' + Math.floor(check) + ' de ' + arr[i] + '€' + '\n';
     }
   }
+  //document.getElementById(id).value = result;
   return result;
 };
 
-console.log(calculo_vuelta_cambio(200, 152, cambio));
+//console.log(calculo(200, 152, cambio));
+
+let importe_total = () => document.getElementById('importe_total').value;
+let pago_cliente = () => document.getElementById('pago_cliente').value;
+let resultado = () => document.getElementById('resultado');
+
+const li = document.createElement('li');
+//document.getElementById('resultado').appendChild(li);
+
+let imprime_resultado = () => {
+  document.getElementById('resultado').appendChild(li).innerHTML = calculo(
+    importe_total(),
+    pago_cliente(),
+    cambio,
+    resultado(),
+  );
+};
+document
+  .getElementById('calcular')
+  .addEventListener('click', () => imprime_resultado());
+
+/*
+// Create element:
+const para = document.createElement('p');
+para.innerText = 'This is a paragraph.';
+
+// Append to body:
+document.body.appendChild(para);
+ */
