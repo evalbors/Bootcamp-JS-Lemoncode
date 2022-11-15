@@ -17,7 +17,7 @@ console.log('La devolución es de ' + vuelta(200, 152) + '€');
 // devolución: 48€
 console.log('------------------------------------------');
 
-var calculo = (importe_total, pago_cliente, arr, id) => {
+var calculo = (importe_total, pago_cliente, arr) => {
   var vuelta = importe_total - pago_cliente;
 
   /*
@@ -34,7 +34,7 @@ var calculo = (importe_total, pago_cliente, arr, id) => {
       var devolucion = '';
       devolucion = vuelta - Math.floor(check) * arr[i];
       vuelta = devolucion;
-      result += '- ' + Math.floor(check) + ' de ' + arr[i] + '€' + '\n';
+      result += '- ' + Math.floor(check) + ' de ' + arr[i] + '€';
     }
   }
   //document.getElementById(id).value = result;
