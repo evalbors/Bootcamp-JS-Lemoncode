@@ -1,0 +1,28 @@
+body {
+  background-color: #eee;
+  flex-direction: column;
+  font-family: sans-serif;
+  display: flex;
+}
+
+.character-row {
+  cursor: pointer;
+}
+
+#character-detail {
+  color: #fff;
+  height: 100vh;
+  background-color: #666;
+  padding: 25px;
+  font-size: 140%;
+  position: fixed;
+  right: 0;
+}
+
+.thumbnail {
+  vertical-align: middle;
+  border-radius: 50%;
+  margin: 15px;
+}
+
+/*# sourceMappingURL=index.4d663569.css.map */
