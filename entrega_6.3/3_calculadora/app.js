@@ -34,6 +34,8 @@ var calculo = (importe_total, pago_cliente, arr) => {
       var devolucion = '';
       devolucion = vuelta - Math.floor(check) * arr[i];
       vuelta = devolucion;
+
+      // concatenarlo con un li
       result += '- ' + Math.floor(check) + ' de ' + arr[i] + '€';
     }
   }
