@@ -1,52 +1,51 @@
-const getImage = () => {
-  fetch('https://www.breakingbadapi.com/api/characters')
-    .then((response) => response.json())
-    .then((data) => {
-      for (item of data) {
-        console.log(item.img);
-      }
+const getName = () => {
+  fetch("https://www.breakingbadapi.com/api/characters")
+    .then(response => response.json())
+    .then(response => {
+      console.log(response.data);
+      return response.data;
     })
-    .catch((error) => {
-      console.log('Error printing images');
+    .catch(error => {
+      console.log("Error printing names");
     });
 };
 
-const getName = () => {
-  fetch('https://www.breakingbadapi.com/api/characters')
-    .then((response) => response.json())
-    .then((data) => {
+const getImage = () => {
+  fetch("https://www.breakingbadapi.com/api/characters")
+    .then(response => response.json())
+    .then(data => {
       for (item of data) {
-        return item.name;
+        return item.img;
       }
     })
-    .catch((error) => {
-      console.log('Error printing names');
+    .catch(error => {
+      console.log("Error printing images");
     });
 };
 
 const getBirthday = () => {
-  fetch('https://www.breakingbadapi.com/api/characters')
-    .then((response) => response.json())
-    .then((data) => {
+  fetch("https://www.breakingbadapi.com/api/characters")
+    .then(response => response.json())
+    .then(data => {
       for (item of data) {
         console.log(item.birthday);
       }
     })
-    .catch((error) => {
-      console.log('Error printing birthdays');
+    .catch(error => {
+      console.log("Error printing birthdays");
     });
 };
 
 const getNickname = () => {
-  fetch('https://www.breakingbadapi.com/api/characters')
-    .then((response) => response.json())
-    .then((data) => {
+  fetch("https://www.breakingbadapi.com/api/characters")
+    .then(response => response.json())
+    .then(data => {
       for (item of data) {
         console.log(item.nickname);
       }
     })
-    .catch((error) => {
-      console.log('Error printing nicknames');
+    .catch(error => {
+      console.log("Error printing nicknames");
     });
 };
 
