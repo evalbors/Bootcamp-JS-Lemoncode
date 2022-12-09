@@ -1,6 +1,8 @@
 # Ignora la carpeta node_modules
 _docs
-# _playa
+_playa
 # fuck git
 
 entrega_6.3/2_agenda/app-solved.js
+entrega_9/.parcel.cache
+entrega_9/node_modules
