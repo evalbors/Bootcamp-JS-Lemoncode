@@ -5,7 +5,7 @@ import { getClientAccountsElement } from './account-business.js';
 import { getAccounts } from './data-business.js';
 
 function getClientElement(client) {
-  const allAccounts = getAccounts();
+  const allAccounts = getAccxxounts();
   const clientAccounts = [];
   for (let account of allAccounts) {
     if (account.clientId === client.id) {

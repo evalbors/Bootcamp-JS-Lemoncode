@@ -1,14 +1,25 @@
 import "./styles.css";
-import { getName, getImage, getBirthday, getNickname } from "./data.js";
-import { createCharacterRow, showCharacter, createParagraph } from "./utils.js";
+import * as DataCharacters from "./data.js";
+import * as Utils from "./utils.js";
 
-const printName = () => {
-  const data = getName();
-  let text = "";
-  for (element of data) {
-    text = createParagraph(element);
+DataCharacters.getCharacters().then(elements => {
+  elements.forEach(element => {
+    const character = Utils.createCharacterRow(element);
+    nodes.push(character);
+  });
+  document.getElementById("character-detail").append(node);
+});
+
+/* 
+SEGUNDO INTENTO
+DataCharacters.getCharacters().then(elements => {
+  const nodes = [];
+  for (let element of elements) {
+    const character = Utils.createCharacterRow(element);
+    nodes.push(character);
   }
-  return text;
-};
-
-console.log(printName());
+  for (let node of nodes) {
+    console.log("hola");
+    document.getElementById("character-detail").append(node);
+  }
+}); */
