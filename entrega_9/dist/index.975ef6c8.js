@@ -535,50 +535,36 @@ function hmrAcceptRun(bundle, id) {
 var _stylesCss = require("./styles.css");
 var _dataJs = require("./data.js");
 var _utilsJs = require("./utils.js");
-_dataJs.getCharacters().then((elements)=>{
-    elements.forEach((element)=>{
-        const character = _utilsJs.createCharacterRow(element);
-        nodes.push(character);
-    });
-    document.getElementById("character-detail").append(node);
-}); /* 
-SEGUNDO INTENTO
-DataCharacters.getCharacters().then(elements => {
-  const nodes = [];
-  for (let element of elements) {
-    const character = Utils.createCharacterRow(element);
-    nodes.push(character);
-  }
-  for (let node of nodes) {
-    console.log("hola");
-    document.getElementById("character-detail").append(node);
-  }
-}); */ 
+_dataJs.getCharacters().then((characters)=>{
+    const nodes = [];
+    const characterList = characters.results;
+    console.log(characters.results);
+    for (let character of characterList){
+        const node = _utilsJs.createCharacterRow(character);
+        nodes.push(node);
+    }
+    for (let node1 of nodes)document.getElementById("root").append(node1);
+});
 
 },{"./styles.css":"lW6qc","./data.js":"9kapS","./utils.js":"en4he"}],"lW6qc":[function() {},{}],"9kapS":[function(require,module,exports) {
-/* import axios from "axios";
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/* 
+import axios from "axios";
 
 function getCharacters() {
   return axios
-    .get("https://breakingbadapi.com/api/characters")
+    .get("https://rickandmortyapi.com/api/character")
     .then(response => {
       return response.data;
     });
-}
- */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "getCharacters", ()=>getCharacters);
-const API = "http://jsonplaceholder.typicode.com";
-const BBAPI = "https://breakingbadapi.com/api/";
-const getCharacters = ()=>{
-    return fetch(`${API}/users`).then((response)=>{
-        response.json();
-    }).then((response)=>{
-        return response.data;
-    }).catch((error)=>{
-        console.log("Se ha producido un error en la api");
+} 
+*/ parcelHelpers.export(exports, "getCharacters", ()=>getCharacters);
+function getCharacters() {
+    return fetch("https://rickandmortyapi.com/api/character").then((response)=>{
+        return response.json();
     });
-};
+}
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"fD7H8":[function(require,module,exports) {
 exports.interopDefault = function(a) {
@@ -627,9 +613,9 @@ const createCharacterRow = (character)=>{
 };
 const createAvatar = (character)=>{
     const element = document.createElement("img");
-    element.width = 150;
+    element.width = 50;
     element.className = "thumbnail";
-    element.src = character.img;
+    element.src = character.image;
     return element;
 };
 const createRowText = (character)=>{
@@ -640,7 +626,7 @@ const createRowText = (character)=>{
 const createAvatarDetail = (character)=>{
     const element = document.createElement("img");
     element.width = 350;
-    element.src = character.img;
+    element.src = character.image;
     return element;
 };
 const showCharacter = (character)=>{
@@ -649,8 +635,8 @@ const showCharacter = (character)=>{
     characterDetail.innerHTML = "";
     characterDetail.appendChild(createAvatarDetail(character));
     characterDetail.appendChild(createParagraph("Name: " + character.name));
-    characterDetail.appendChild(createParagraph("Birthday: " + character.birthday));
-    characterDetail.appendChild(createParagraph("Nickname: " + character.nickname));
+    characterDetail.appendChild(createParagraph("Species: " + character.species));
+    characterDetail.appendChild(createParagraph("Status: " + character.status));
 };
 const createParagraph = (text)=>{
     const element = document.createElement("p");

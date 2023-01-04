@@ -14,9 +14,9 @@ const createCharacterRow = character => {
 
 const createAvatar = character => {
   const element = document.createElement("img");
-  element.width = 150;
+  element.width = 50;
   element.className = "thumbnail";
-  element.src = character.img;
+  element.src = character.image;
 
   return element;
 };
@@ -31,7 +31,7 @@ const createRowText = character => {
 const createAvatarDetail = character => {
   const element = document.createElement("img");
   element.width = 350;
-  element.src = character.img;
+  element.src = character.image;
 
   return element;
 };
@@ -43,12 +43,8 @@ const showCharacter = character => {
   characterDetail.innerHTML = "";
   characterDetail.appendChild(createAvatarDetail(character));
   characterDetail.appendChild(createParagraph("Name: " + character.name));
-  characterDetail.appendChild(
-    createParagraph("Birthday: " + character.birthday)
-  );
-  characterDetail.appendChild(
-    createParagraph("Nickname: " + character.nickname)
-  );
+  characterDetail.appendChild(createParagraph("Species: " + character.species));
+  characterDetail.appendChild(createParagraph("Status: " + character.status));
 };
 
 const createParagraph = text => {

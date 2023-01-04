@@ -2,24 +2,17 @@ import "./styles.css";
 import * as DataCharacters from "./data.js";
 import * as Utils from "./utils.js";
 
-DataCharacters.getCharacters().then(elements => {
-  elements.forEach(element => {
-    const character = Utils.createCharacterRow(element);
-    nodes.push(character);
-  });
-  document.getElementById("character-detail").append(node);
-});
-
-/* 
-SEGUNDO INTENTO
-DataCharacters.getCharacters().then(elements => {
+DataCharacters.getCharacters().then(characters => {
   const nodes = [];
-  for (let element of elements) {
-    const character = Utils.createCharacterRow(element);
-    nodes.push(character);
+  const characterList = characters.results;
+  console.log(characters.results);
+
+  for (let character of characterList) {
+    const node = Utils.createCharacterRow(character);
+    nodes.push(node);
   }
+
   for (let node of nodes) {
-    console.log("hola");
-    document.getElementById("character-detail").append(node);
+    document.getElementById("root").append(node);
   }
-}); */
+});
