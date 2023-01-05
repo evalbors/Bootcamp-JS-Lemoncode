@@ -37,7 +37,8 @@ const createAvatarDetail = character => {
 };
 
 const showCharacter = character => {
-  console.log("character", character);
+  // console.log("character", character);
+
   const characterDetail = document.getElementById("character-detail");
 
   characterDetail.innerHTML = "";

@@ -4,6 +4,14 @@ function getCharacters() {
   });
 }
 
+function getCharacterDetail(char_id) {
+  return fetch("https://rickandmortyapi.com/api/character/" + char_id).then(
+    response => {
+      return response.json();
+    }
+  );
+}
+
 /* 
 import axios from "axios";
 
@@ -16,4 +24,4 @@ function getCharacters() {
 } 
 */
 
-export { getCharacters };
+export { getCharacters, getCharacterDetail };

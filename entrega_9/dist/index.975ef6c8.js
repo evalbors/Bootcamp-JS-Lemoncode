@@ -533,70 +533,24 @@ function hmrAcceptRun(bundle, id) {
 
 },{}],"8lqZg":[function(require,module,exports) {
 var _stylesCss = require("./styles.css");
-var _dataJs = require("./data.js");
+var _dataBusinessJs = require("./data-business.js");
 var _utilsJs = require("./utils.js");
-_dataJs.getCharacters().then((characters)=>{
+_dataBusinessJs.getCharacters().then((characters)=>{
     const nodes = [];
     const characterList = characters.results;
-    console.log(characters.results);
     for (let character of characterList){
         const node = _utilsJs.createCharacterRow(character);
         nodes.push(node);
+        node.addEventListener("click", ()=>{
+            _dataBusinessJs.getCharacterDetail(character.id).then((character)=>{
+                _utilsJs.showCharacter(character);
+            });
+        });
     }
     for (let node1 of nodes)document.getElementById("root").append(node1);
 });
 
-},{"./styles.css":"lW6qc","./data.js":"9kapS","./utils.js":"en4he"}],"lW6qc":[function() {},{}],"9kapS":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-/* 
-import axios from "axios";
-
-function getCharacters() {
-  return axios
-    .get("https://rickandmortyapi.com/api/character")
-    .then(response => {
-      return response.data;
-    });
-} 
-*/ parcelHelpers.export(exports, "getCharacters", ()=>getCharacters);
-function getCharacters() {
-    return fetch("https://rickandmortyapi.com/api/character").then((response)=>{
-        return response.json();
-    });
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"fD7H8":[function(require,module,exports) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, "__esModule", {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"en4he":[function(require,module,exports) {
+},{"./styles.css":"lW6qc","./utils.js":"en4he","./data-business.js":"iM7Bx"}],"lW6qc":[function() {},{}],"en4he":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "createCharacterRow", ()=>createCharacterRow);
@@ -630,7 +584,7 @@ const createAvatarDetail = (character)=>{
     return element;
 };
 const showCharacter = (character)=>{
-    console.log("character", character);
+    // console.log("character", character);
     const characterDetail = document.getElementById("character-detail");
     characterDetail.innerHTML = "";
     characterDetail.appendChild(createAvatarDetail(character));
@@ -643,6 +597,62 @@ const createParagraph = (text)=>{
     element.append(text);
     return element;
 };
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"fD7H8":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"iM7Bx":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/* 
+import axios from "axios";
+
+function getCharacters() {
+  return axios
+    .get("https://rickandmortyapi.com/api/character")
+    .then(response => {
+      return response.data;
+    });
+} 
+*/ parcelHelpers.export(exports, "getCharacters", ()=>getCharacters);
+parcelHelpers.export(exports, "getCharacterDetail", ()=>getCharacterDetail);
+function getCharacters() {
+    return fetch("https://rickandmortyapi.com/api/character").then((response)=>{
+        return response.json();
+    });
+}
+function getCharacterDetail(char_id) {
+    return fetch("https://rickandmortyapi.com/api/character/" + char_id).then((response)=>{
+        return response.json();
+    });
+}
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}]},["66IEb","8lqZg"], "8lqZg", "parcelRequire1e52")
 
