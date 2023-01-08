@@ -84,17 +84,121 @@ class ReservaTourOperador extends ReservaCliente {
   }
 }
 
-console.log("** Cliente caso 1 ***");
+console.log("** Caso 1 ***");
 const reserva1 = new ReservaCliente();
 reserva1.reservas = reservas;
-console.log("subtotal", reserva1.subtotal);
-console.log("total", reserva1.total);
+console.log("subtotal cliente caso 1: ", reserva1.subtotal);
+console.log("total cliente caso 1: ", reserva1.total);
 
-console.log("** Cliente caso 2 ***");
+console.log("** Caso 2 ***");
 const reserva2 = new ReservaTourOperador();
 reserva2.reservas = reservas;
-console.log("subtotal", reserva2.subtotal);
-console.log("total", reserva2.total);
+console.log("subtotal cliente caso 2: ", reserva2.subtotal);
+console.log("total cliente caso 2: ", reserva2.total);
+// iva: 189  | descuento: 135
 
-// 189 iva
-// 135 dto.
+class Reserva {
+  constructor() {
+    this._reservas = [];
+    this._subtotal = 0;
+    this._precio = 100;
+  }
+
+  get subtotal() {
+    return this._subtotal;
+  }
+  get total() {
+    return this._total;
+  }
+
+  calculaIVA() {
+    return this.subtotal * 0.21;
+  }
+  calculaSubtotal() {
+    this._subtotal = reservas.reduce(
+      (acumulado, { noches, pax }) => acumulado + noches * pax * this.precio,
+      0
+    );
+  }
+  calculaTotal() {
+    this._total = this._subtotal + this.calculaIVA(this.subtotal);
+  }
+
+  set reservas(reservas) {
+    this._reservas = reservas;
+    this.calculaSubtotal();
+    this.calculaTotal();
+  }
+}
+
+// las funcionalidades comunes:
+// - calculo iva
+// - calculo subtotal
+// - calculo total
+
+// las diferencias:
+// - precio habitación
+// - cargos adicionales
+// - descuento
+
+class ClienteParticular extends Reserva {
+  constructor() {
+    super();
+    this._precioSuite = 150;
+  }
+
+  calculaPrecioHabitacion(tipoHabitacion) {
+    if (tipoHabitacion === "suite") {
+      return this._precioSuite;
+    }
+    return this._precio;
+  }
+  calculaCargosAdicionales() {
+    return reservas.reduce((acumulado, { pax }) => acumulado + pax * 40, 0);
+  }
+  calculaSubtotal() {
+    this._subtotal =
+      reservas.reduce(
+        (acumulado, { noches, pax, tipoHabitacion }) =>
+          acumulado +
+          noches * pax * this.calculaPrecioHabitacion(tipoHabitacion),
+        0
+      ) + this.calculaCargosAdicionales();
+  }
+}
+class Tour0perador extends Reserva {
+  constructor() {
+    super();
+    this._descuento = 0.15;
+  }
+
+  calculaDescuento() {
+    return this.subtotal * this._descuento;
+  }
+  calculaTotal() {
+    this._total =
+      this._subtotal -
+      this.calculaDescuento(this.subtotal) +
+      this.calculaIVA(this.subtotal);
+  }
+}
+
+console.log("** DESAFÍO ***");
+const reservaClienteParticular = new ClienteParticular();
+reservaClienteParticular.reservas = reservas;
+console.log(
+  "subtotal cliente caso Cliente Particular: ",
+  reservaClienteParticular.subtotal
+);
+console.log(
+  "total cliente Cliente Particular: ",
+  reservaClienteParticular.total
+);
+
+const reservaTour0perador = new Tour0perador();
+reservaTour0perador.reservas = reservas;
+console.log(
+  "subtotal cliente caso Tour 0perador: ",
+  reservaTour0perador.subtotal
+);
+console.log("total cliente Tour 0perador: ", reservaTour0perador.total);
