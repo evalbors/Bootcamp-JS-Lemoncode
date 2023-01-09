@@ -48,7 +48,7 @@ class ReservaCliente {
   }
 
   calculaIVA() {
-    return this.subtotal * 0.21;
+    return this._subtotal * 0.21;
   }
 
   calculaCargosAdicionales() {
@@ -56,7 +56,7 @@ class ReservaCliente {
   }
 
   calculaTotal() {
-    this._total = this._subtotal + this.calculaIVA(this.subtotal);
+    this._total = this._subtotal + this.calculaIVA(this._subtotal);
   }
 
   set reservas(reservas) {
@@ -74,13 +74,13 @@ class ReservaTourOperador extends ReservaCliente {
     );
   }
   calculaDescuento() {
-    return this.subtotal * 0.15;
+    return this._subtotal * 0.15;
   }
   calculaTotal() {
     this._total =
       this._subtotal -
-      this.calculaDescuento(this.subtotal) +
-      this.calculaIVA(this.subtotal);
+      this.calculaDescuento(this._subtotal) +
+      this.calculaIVA(this._subtotal);
   }
 }
 
@@ -112,16 +112,16 @@ class Reserva {
   }
 
   calculaIVA() {
-    return this.subtotal * 0.21;
+    return this._subtotal * 0.21;
   }
   calculaSubtotal() {
     this._subtotal = reservas.reduce(
-      (acumulado, { noches, pax }) => acumulado + noches * pax * this.precio,
+      (acumulado, { noches, pax }) => acumulado + noches * pax * this._precio,
       0
     );
   }
   calculaTotal() {
-    this._total = this._subtotal + this.calculaIVA(this.subtotal);
+    this._total = this._subtotal + this.calculaIVA(this._subtotal);
   }
 
   set reservas(reservas) {
@@ -173,13 +173,14 @@ class Tour0perador extends Reserva {
   }
 
   calculaDescuento() {
-    return this.subtotal * this._descuento;
+    console.log(this._subtotal);
+    return this._subtotal * this._descuento;
   }
   calculaTotal() {
     this._total =
       this._subtotal -
-      this.calculaDescuento(this.subtotal) +
-      this.calculaIVA(this.subtotal);
+      this.calculaDescuento(this._subtotal) +
+      this.calculaIVA(this._subtotal);
   }
 }
 
