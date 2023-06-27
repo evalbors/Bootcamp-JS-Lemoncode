@@ -42,6 +42,14 @@
       "lastTransaction": "2023-06-26T12:52:44.386Z",
       "id": "Wxj7t68",
       "alias": "Otra que añado"
+    },
+    {
+      "iban": "RO69 EAXP 6075 2L60 5072 4B30",
+      "name": "Otra cuenta",
+      "type": "2",
+      "balance": 0,
+      "lastTransaction": "2023-06-27T09:10:29.807Z",
+      "id": "cQvpBya"
     }
   ],
   "movements": [

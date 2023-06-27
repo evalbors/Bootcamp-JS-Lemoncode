@@ -4036,10 +4036,35 @@ exports.setOptions = setOptions;
 var _propertyList = require("./property-list.api");
 var _propertyList2 = require("./property-list.mappers");
 var _propertyList3 = require("./property-list.helpers");
-(0, _propertyList.getPropertyList)().then(function (propertyList) {
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+/* Después del then...
+    const propertyList = resultList[0];
+    const saleTypeList = resultList[1];
+    const provinceList = resultList[2];
+
+); Abajo lo abraviamos más: */
+/*
+    const [propertyList, saleTypeList, provinceList] = resultList;
+  }
+); Abajo lo abraviamos más todavía: */
+Promise.all([(0, _propertyList.getPropertyList)(), (0, _propertyList.getSaleTypeListUrl)(), (0, _propertyList.getProvincesListUrl)()]).then(function (_ref) {
+  var _ref2 = _slicedToArray(_ref, 3),
+    propertyList = _ref2[0],
+    saleTypeList = _ref2[1],
+    provinceList = _ref2[2];
+  loadPropertyList(propertyList);
+  (0, _propertyList3.setOptions)(saleTypeList, 'select-sale-type', 'Tipo');
+  (0, _propertyList3.setOptions)(provinceList, 'select-province', 'Provincia');
+});
+var loadPropertyList = function loadPropertyList(propertyList) {
   var viewModelPropertyList = (0, _propertyList2.mapPropertyListFromApiToVM)(propertyList);
   (0, _propertyList3.addPropertyRows)(viewModelPropertyList);
-});
+};
 },{"./property-list.api":"pages/property-list/property-list.api.js","./property-list.mappers":"pages/property-list/property-list.mappers.js","./property-list.helpers":"pages/property-list/property-list.helpers.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -4065,7 +4090,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57732" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58488" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
