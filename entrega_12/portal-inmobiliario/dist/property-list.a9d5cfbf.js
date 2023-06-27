@@ -4030,12 +4030,233 @@ var setOptions = function setOptions(list, id, defaultValue) {
   });
 };
 exports.setOptions = setOptions;
-},{"../../core/content/img/email_icon.svg":"core/content/img/email_icon.svg","../../core/content/img/telefono_icon.svg":"core/content/img/telefono_icon.svg","../../core/router":"core/router/index.js"}],"pages/property-list/property-list.js":[function(require,module,exports) {
+},{"../../core/content/img/email_icon.svg":"core/content/img/email_icon.svg","../../core/content/img/telefono_icon.svg":"core/content/img/telefono_icon.svg","../../core/router":"core/router/index.js"}],"pages/property-list/property-list-constants.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.roomOptions = exports.minPriceOptions = exports.maxPriceOptions = exports.bathroomOptions = void 0;
+var roomOptions = [{
+  id: '1',
+  name: '+1'
+}, {
+  id: '2',
+  name: '+2'
+}, {
+  id: '3',
+  name: '+3'
+}, {
+  id: '4',
+  name: '+4'
+}, {
+  id: '5',
+  name: '+5'
+}];
+exports.roomOptions = roomOptions;
+var bathroomOptions = [{
+  id: '1',
+  name: '+1'
+}, {
+  id: '2',
+  name: '+2'
+}, {
+  id: '3',
+  name: '+3'
+}, {
+  id: '4',
+  name: '+4'
+}, {
+  id: '5',
+  name: '+5'
+}];
+exports.bathroomOptions = bathroomOptions;
+var minPriceOptions = [{
+  id: '300',
+  name: '300 €'
+}, {
+  id: '600',
+  name: '600 €'
+}, {
+  id: '900',
+  name: '900 €'
+}, {
+  id: '1200',
+  name: '1.200 €'
+}, {
+  id: '1600',
+  name: '1.600 €'
+}, {
+  id: '2000',
+  name: '2.000 €'
+}, {
+  id: '2500',
+  name: '2.500 €'
+}];
+exports.minPriceOptions = minPriceOptions;
+var maxPriceOptions = [{
+  id: '100000',
+  name: '100.000 €'
+}, {
+  id: '120000',
+  name: '120.000 €'
+}, {
+  id: '140000',
+  name: '140.000 €'
+}, {
+  id: '180000',
+  name: '180.000 €'
+}, {
+  id: '200000',
+  name: '200.000 €'
+}, {
+  id: '300000',
+  name: '300.000 €'
+}, {
+  id: '500000',
+  name: '500.000 €'
+}];
+exports.maxPriceOptions = maxPriceOptions;
+},{}],"common/helpers/element.helpers.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.onUpdateField = exports.onSubmitForm = exports.onSetValues = exports.onSetFormErrors = exports.onSetError = exports.onAddFile = void 0;
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+var onUpdateField = function onUpdateField(id, callback) {
+  var element = document.getElementById(id);
+  element.oninput = function (event) {
+    return callback(event);
+  };
+  if (element.type !== 'checkbox') {
+    element.onblur = function (event) {
+      return callback(event);
+    };
+  }
+};
+exports.onUpdateField = onUpdateField;
+var onSubmitForm = function onSubmitForm(id, callback) {
+  var element = document.getElementById(id);
+  element.onclick = function (e) {
+    e.preventDefault();
+    callback();
+  };
+};
+exports.onSubmitForm = onSubmitForm;
+var onAddFile = function onAddFile(id, callback) {
+  var input = document.getElementById(id);
+  input.onchange = function () {
+    var file = input.files[0];
+    var fileReader = new FileReader();
+    fileReader.onloadend = function () {
+      callback(fileReader.result);
+    };
+    fileReader.readAsDataURL(file);
+  };
+};
+exports.onAddFile = onAddFile;
+var onSetError = function onSetError(id, error) {
+  if (error.succeeded) {
+    removeElementClass(id);
+    setErrorMessage(id, '');
+  } else {
+    setElementClass(id);
+    setErrorMessage(id, error.message);
+  }
+};
+exports.onSetError = onSetError;
+var setElementClass = function setElementClass(id) {
+  var element = document.getElementById(id);
+  if (element) {
+    element.classList.add('error');
+  }
+};
+var removeElementClass = function removeElementClass(id) {
+  var element = document.getElementById(id);
+  if (element) {
+    element.classList.remove('error');
+  }
+};
+var setErrorMessage = function setErrorMessage(id, message) {
+  var messageElement = document.getElementById("".concat(id, "-error"));
+  if (messageElement) {
+    messageElement.textContent = message;
+  }
+};
+var onSetFormErrors = function onSetFormErrors(_ref) {
+  var fieldErrors = _ref.fieldErrors;
+  Object.entries(fieldErrors).forEach(function (_ref2) {
+    var _ref3 = _slicedToArray(_ref2, 2),
+      key = _ref3[0],
+      value = _ref3[1];
+    onSetError(key, value);
+  });
+};
+exports.onSetFormErrors = onSetFormErrors;
+var setValue = function setValue(element, value) {
+  var elementType = element.tagName.toLowerCase();
+  if (elementType === 'select' || elementType === 'input' || elementType === 'textarea') {
+    element.value = value;
+  } else {
+    element.textContent = value;
+  }
+};
+var onSetValue = function onSetValue(id, value) {
+  var element = document.getElementById(id);
+  console.log({
+    element: element
+  });
+  if (element) {
+    setValue(element, value);
+  }
+};
+var onSetValues = function onSetValues(values) {
+  Object.entries(values).forEach(function (_ref4) {
+    var _ref5 = _slicedToArray(_ref4, 2),
+      key = _ref5[0],
+      value = _ref5[1];
+    return onSetValue(key, value);
+  });
+};
+exports.onSetValues = onSetValues;
+},{}],"common/helpers/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _element = require("./element.helpers");
+Object.keys(_element).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _element[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _element[key];
+    }
+  });
+});
+},{"./element.helpers":"common/helpers/element.helpers.js"}],"pages/property-list/property-list.js":[function(require,module,exports) {
 "use strict";
 
 var _propertyList = require("./property-list.api");
 var _propertyList2 = require("./property-list.mappers");
 var _propertyList3 = require("./property-list.helpers");
+var _propertyListConstants = require("./property-list-constants");
+var _helpers = require("../../common/helpers");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -4060,12 +4281,73 @@ Promise.all([(0, _propertyList.getPropertyList)(), (0, _propertyList.getSaleType
   loadPropertyList(propertyList);
   (0, _propertyList3.setOptions)(saleTypeList, 'select-sale-type', 'Tipo');
   (0, _propertyList3.setOptions)(provinceList, 'select-province', 'Provincia');
+  (0, _propertyList3.setOptions)(_propertyListConstants.roomOptions, 'select-room', 'Habitaciones');
+  (0, _propertyList3.setOptions)(_propertyListConstants.bathroomOptions, 'select-bathroom', 'Baños');
+  (0, _propertyList3.setOptions)(_propertyListConstants.minPriceOptions, 'select-min-price', 'Mín. (€)');
+  (0, _propertyList3.setOptions)(_propertyListConstants.maxPriceOptions, 'select-max-price', 'Máx. (€)');
 });
 var loadPropertyList = function loadPropertyList(propertyList) {
   var viewModelPropertyList = (0, _propertyList2.mapPropertyListFromApiToVM)(propertyList);
   (0, _propertyList3.addPropertyRows)(viewModelPropertyList);
 };
-},{"./property-list.api":"pages/property-list/property-list.api.js","./property-list.mappers":"pages/property-list/property-list.mappers.js","./property-list.helpers":"pages/property-list/property-list.helpers.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+// Vamos a modelar lo que queremos en la vista
+var filter = {
+  saleTypeId: '',
+  provinceId: '',
+  minRooms: '',
+  minBathrooms: '',
+  minPrice: '',
+  maxPrice: ''
+};
+var changeFilterProperty = function changeFilterProperty(obj, event) {
+  var value = event.target.value;
+  obj = _objectSpread(_objectSpread({}, obj), {}, {
+    property: value
+  });
+};
+(0, _helpers.onUpdateField)('select-sale-type', function (event) {
+  var value = event.target.value;
+  filter = _objectSpread(_objectSpread({}, filter), {}, {
+    saleTypeId: value
+  });
+});
+(0, _helpers.onUpdateField)('select-province', function (event) {
+  var value = event.target.value;
+  filter = _objectSpread(_objectSpread({}, filter), {}, {
+    provinceId: value
+  });
+});
+(0, _helpers.onUpdateField)('select-room', function (event) {
+  var value = event.target.value;
+  filter = _objectSpread(_objectSpread({}, filter), {}, {
+    minRooms: value
+  });
+});
+(0, _helpers.onUpdateField)('select-bathroom', function (event) {
+  var value = event.target.value;
+  filter = _objectSpread(_objectSpread({}, filter), {}, {
+    minBathrooms: value
+  });
+});
+(0, _helpers.onUpdateField)('select-min-price', function (event) {
+  var value = event.target.value;
+  filter = _objectSpread(_objectSpread({}, filter), {}, {
+    minPrice: value
+  });
+});
+(0, _helpers.onUpdateField)('select-max-price', function (event) {
+  var value = event.target.value;
+  filter = _objectSpread(_objectSpread({}, filter), {}, {
+    maxPrice: value
+  });
+});
+(0, _helpers.onSubmitForm)('search-button', function () {
+  console.log({
+    filter: filter
+  });
+});
+},{"./property-list.api":"pages/property-list/property-list.api.js","./property-list.mappers":"pages/property-list/property-list.mappers.js","./property-list.helpers":"pages/property-list/property-list.helpers.js","./property-list-constants":"pages/property-list/property-list-constants.js","../../common/helpers":"common/helpers/index.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -4090,7 +4372,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58488" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59207" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
