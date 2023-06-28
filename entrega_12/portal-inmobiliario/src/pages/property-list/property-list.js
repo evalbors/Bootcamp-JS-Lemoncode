@@ -1,10 +1,20 @@
+/* interface Property {
+  id: string;
+  title: string;
+  rooms: string; // 3 habitaciones
+  squareMeter: string; // 136m2
+  notes: string; // Truncate 240 chars
+  price: string; // 120.000 €
+  image: string; // image base64
+  }
+ */
 import {
   getPropertyList,
-  getSaleTypeListUrl,
-  getProvincesListUrl,
+  getSaleTypeList,
+  getProvinceList,
 } from './property-list.api';
 import {
-  mapPropertyListFromApiToVM,
+  mapPropertyListApiToVm,
   mapFilterToQueryParams,
 } from './property-list.mappers';
 import {
@@ -17,41 +27,26 @@ import {
   bathroomOptions,
   minPriceOptions,
   maxPriceOptions,
-} from './property-list-constants';
+} from './property-list.constants';
 import { onUpdateField, onSubmitForm } from '../../common/helpers';
 
-/* Después del then...
-    const propertyList = resultList[0];
-    const saleTypeList = resultList[1];
-    const provinceList = resultList[2];
-
-); Abajo lo abraviamos más: */
-
-/*
-    const [propertyList, saleTypeList, provinceList] = resultList;
+Promise.all([getPropertyList(), getSaleTypeList(), getProvinceList()]).then(
+  ([propertyList, saleTypeList, provinceList]) => {
+    loadPropertyList(propertyList);
+    setOptions(saleTypeList, 'select-sale-type', '¿Qué venta?');
+    setOptions(provinceList, 'select-province', '¿Dónde?');
+    setOptions(roomOptions, 'select-room', '¿Habitaciones?');
+    setOptions(bathroomOptions, 'select-bathroom', '¿Cuartos de baño?');
+    setOptions(minPriceOptions, 'select-min-price', 'Min (EUR)');
+    setOptions(maxPriceOptions, 'select-max-price', 'Max (EUR)');
   }
-); Abajo lo abraviamos más todavía: */
-
-Promise.all([
-  getPropertyList(),
-  getSaleTypeListUrl(),
-  getProvincesListUrl(),
-]).then(([propertyList, saleTypeList, provinceList]) => {
-  loadPropertyList(propertyList);
-  setOptions(saleTypeList, 'select-sale-type', 'Tipo');
-  setOptions(provinceList, 'select-province', 'Provincia');
-  setOptions(roomOptions, 'select-room', 'Habitaciones');
-  setOptions(bathroomOptions, 'select-bathroom', 'Baños');
-  setOptions(minPriceOptions, 'select-min-price', 'Mín. (€)');
-  setOptions(maxPriceOptions, 'select-max-price', 'Máx. (€)');
-});
+);
 
 const loadPropertyList = (propertyList) => {
-  const viewModelPropertyList = mapPropertyListFromApiToVM(propertyList);
-  addPropertyRows(viewModelPropertyList);
+  const vmPropertyList = mapPropertyListApiToVm(propertyList);
+  addPropertyRows(vmPropertyList);
 };
 
-// Vamos a modelar lo que queremos en la vista
 let filter = {
   saleTypeId: '',
   provinceId: '',
@@ -60,15 +55,6 @@ let filter = {
   minPrice: '',
   maxPrice: '',
 };
-
-const changeFilterProperty = (obj, event) => {
-  const value = event.target.value;
-  obj = {
-    ...obj,
-    property: value,
-  };
-};
-
 onUpdateField('select-sale-type', (event) => {
   const value = event.target.value;
   filter = {
@@ -76,7 +62,6 @@ onUpdateField('select-sale-type', (event) => {
     saleTypeId: value,
   };
 });
-
 onUpdateField('select-province', (event) => {
   const value = event.target.value;
   filter = {
@@ -84,7 +69,6 @@ onUpdateField('select-province', (event) => {
     provinceId: value,
   };
 });
-
 onUpdateField('select-room', (event) => {
   const value = event.target.value;
   filter = {
@@ -92,7 +76,6 @@ onUpdateField('select-room', (event) => {
     minRooms: value,
   };
 });
-
 onUpdateField('select-bathroom', (event) => {
   const value = event.target.value;
   filter = {
@@ -120,8 +103,7 @@ onUpdateField('select-max-price', (event) => {
 onSubmitForm('search-button', () => {
   const queryParams = mapFilterToQueryParams(filter);
   clearPropertyRows();
-  getPropertyList(queryParams).then((propertyList) =>
-    loadPropertyList(propertyList)
-  );
-  console.log({ filter });
+  getPropertyList(queryParams).then((propertyList) => {
+    loadPropertyList(propertyList);
+  });
 });

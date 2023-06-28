@@ -1853,52 +1853,53 @@ module.exports = require('./lib/axios');
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getSaleTypeListUrl = exports.getProvincesListUrl = exports.getPropertyList = void 0;
+exports.getSaleTypeList = exports.getProvinceList = exports.getPropertyList = void 0;
 var _axios = _interopRequireDefault(require("axios"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var url = "".concat("http://localhost:3000/api", "/properties");
+var propertyListUrl = "".concat("http://localhost:3000/api", "/properties?");
 var getPropertyList = function getPropertyList(queryParams) {
-  return _axios.default.get("".concat(url, "?").concat(queryParams)).then(function (response) {
-    return response.data;
+  return _axios.default.get("".concat(propertyListUrl).concat(queryParams)).then(function (_ref) {
+    var data = _ref.data;
+    return data;
   });
 };
 exports.getPropertyList = getPropertyList;
 var saleTypeListUrl = "".concat("http://localhost:3000/api", "/saleTypes");
-var getSaleTypeListUrl = function getSaleTypeListUrl() {
-  return _axios.default.get(saleTypeListUrl).then(function (response) {
-    return response.data;
+var getSaleTypeList = function getSaleTypeList() {
+  return _axios.default.get(saleTypeListUrl).then(function (_ref2) {
+    var data = _ref2.data;
+    return data;
   });
 };
-exports.getSaleTypeListUrl = getSaleTypeListUrl;
-var provincesListUrl = "".concat("http://localhost:3000/api", "/provinces");
-var getProvincesListUrl = function getProvincesListUrl() {
-  return _axios.default.get(provincesListUrl).then(function (response) {
-    return response.data;
+exports.getSaleTypeList = getSaleTypeList;
+var provinceListUrl = "".concat("http://localhost:3000/api", "/provinces");
+var getProvinceList = function getProvinceList() {
+  return _axios.default.get(provinceListUrl).then(function (_ref3) {
+    var data = _ref3.data;
+    return data;
   });
 };
-exports.getProvincesListUrl = getProvincesListUrl;
+exports.getProvinceList = getProvinceList;
 },{"axios":"../node_modules/axios/index.js"}],"pages/property-list/property-list.mappers.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.mapPropertyListFromApiToVM = exports.mapFilterToQueryParams = void 0;
-// para el listado de entidades que es property
-var mapPropertyListFromApiToVM = function mapPropertyListFromApiToVM(propertyList) {
-  return propertyList.map(function (property) {
-    return mapPropertyFromApiToVM(property);
-  });
+exports.mapPropertyListApiToVm = exports.mapFilterToQueryParams = void 0;
+var mapPropertyListApiToVm = function mapPropertyListApiToVm(propertyList) {
+  return Array.isArray(propertyList) ? propertyList.map(function (property) {
+    return mapPropertyApiToVm(property);
+  }) : [];
 };
-// para una sola entidad
-exports.mapPropertyListFromApiToVM = mapPropertyListFromApiToVM;
-var mapPropertyFromApiToVM = function mapPropertyFromApiToVM(property) {
+exports.mapPropertyListApiToVm = mapPropertyListApiToVm;
+var mapPropertyApiToVm = function mapPropertyApiToVm(property) {
   return {
     id: property.id,
     title: property.title,
     rooms: "".concat(property.rooms, " ").concat(getRoomWord(property.rooms)),
-    squareMeter: "".concat(property.squareMeter, " m2"),
-    notes: "".concat(property.notes.substring(0, 240), " ..."),
+    squareMeter: "".concat(property.squareMeter, "m2"),
+    notes: "".concat(property.notes.substring(0, 240), "..."),
     price: "".concat(property.price.toLocaleString(), " \u20AC"),
     image: Array.isArray(property.images) ? property.images[0] : ''
   };
@@ -1909,10 +1910,10 @@ var getRoomWord = function getRoomWord(rooms) {
 var mapFilterToQueryParams = function mapFilterToQueryParams(filter) {
   var queryParams = '';
   if (filter.saleTypeId) {
-    queryParams = "".concat(queryParams, "saleTypeId_like=").concat(filter.saleTypeId, "&");
+    queryParams = "".concat(queryParams, "saleTypeIds_like=").concat(filter.saleTypeId, "&");
   }
   if (filter.provinceId) {
-    queryParams = "".concat(queryParams, "provinveId=").concat(filter.provinceId, "&");
+    queryParams = "".concat(queryParams, "provinceId=").concat(filter.provinceId, "&");
   }
   if (filter.minRooms) {
     queryParams = "".concat(queryParams, "rooms_gte=").concat(filter.minRooms, "&");
@@ -4053,7 +4054,7 @@ var setOptions = function setOptions(list, id, defaultValue) {
   });
 };
 exports.setOptions = setOptions;
-},{"../../core/content/img/email_icon.svg":"core/content/img/email_icon.svg","../../core/content/img/telefono_icon.svg":"core/content/img/telefono_icon.svg","../../core/router":"core/router/index.js"}],"pages/property-list/property-list-constants.js":[function(require,module,exports) {
+},{"../../core/content/img/email_icon.svg":"core/content/img/email_icon.svg","../../core/content/img/telefono_icon.svg":"core/content/img/telefono_icon.svg","../../core/router":"core/router/index.js"}],"pages/property-list/property-list.constants.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -4272,7 +4273,7 @@ Object.keys(_element).forEach(function (key) {
 var _propertyList = require("./property-list.api");
 var _propertyList2 = require("./property-list.mappers");
 var _propertyList3 = require("./property-list.helpers");
-var _propertyListConstants = require("./property-list-constants");
+var _propertyList4 = require("./property-list.constants");
 var _helpers = require("../../common/helpers");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -4285,36 +4286,33 @@ function _nonIterableRest() { throw new TypeError("Invalid attempt to destructur
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-/* Después del then...
-    const propertyList = resultList[0];
-    const saleTypeList = resultList[1];
-    const provinceList = resultList[2];
-
-); Abajo lo abraviamos más: */
-/*
-    const [propertyList, saleTypeList, provinceList] = resultList;
-  }
-); Abajo lo abraviamos más todavía: */
-Promise.all([(0, _propertyList.getPropertyList)(), (0, _propertyList.getSaleTypeListUrl)(), (0, _propertyList.getProvincesListUrl)()]).then(function (_ref) {
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; } /* interface Property {
+                                                                        id: string;
+                                                                        title: string;
+                                                                        rooms: string; // 3 habitaciones
+                                                                        squareMeter: string; // 136m2
+                                                                        notes: string; // Truncate 240 chars
+                                                                        price: string; // 120.000 €
+                                                                        image: string; // image base64
+                                                                        }
+                                                                       */
+Promise.all([(0, _propertyList.getPropertyList)(), (0, _propertyList.getSaleTypeList)(), (0, _propertyList.getProvinceList)()]).then(function (_ref) {
   var _ref2 = _slicedToArray(_ref, 3),
     propertyList = _ref2[0],
     saleTypeList = _ref2[1],
     provinceList = _ref2[2];
   loadPropertyList(propertyList);
-  (0, _propertyList3.setOptions)(saleTypeList, 'select-sale-type', 'Tipo');
-  (0, _propertyList3.setOptions)(provinceList, 'select-province', 'Provincia');
-  (0, _propertyList3.setOptions)(_propertyListConstants.roomOptions, 'select-room', 'Habitaciones');
-  (0, _propertyList3.setOptions)(_propertyListConstants.bathroomOptions, 'select-bathroom', 'Baños');
-  (0, _propertyList3.setOptions)(_propertyListConstants.minPriceOptions, 'select-min-price', 'Mín. (€)');
-  (0, _propertyList3.setOptions)(_propertyListConstants.maxPriceOptions, 'select-max-price', 'Máx. (€)');
+  (0, _propertyList3.setOptions)(saleTypeList, 'select-sale-type', '¿Qué venta?');
+  (0, _propertyList3.setOptions)(provinceList, 'select-province', '¿Dónde?');
+  (0, _propertyList3.setOptions)(_propertyList4.roomOptions, 'select-room', '¿Habitaciones?');
+  (0, _propertyList3.setOptions)(_propertyList4.bathroomOptions, 'select-bathroom', '¿Cuartos de baño?');
+  (0, _propertyList3.setOptions)(_propertyList4.minPriceOptions, 'select-min-price', 'Min (EUR)');
+  (0, _propertyList3.setOptions)(_propertyList4.maxPriceOptions, 'select-max-price', 'Max (EUR)');
 });
 var loadPropertyList = function loadPropertyList(propertyList) {
-  var viewModelPropertyList = (0, _propertyList2.mapPropertyListFromApiToVM)(propertyList);
-  (0, _propertyList3.addPropertyRows)(viewModelPropertyList);
+  var vmPropertyList = (0, _propertyList2.mapPropertyListApiToVm)(propertyList);
+  (0, _propertyList3.addPropertyRows)(vmPropertyList);
 };
-
-// Vamos a modelar lo que queremos en la vista
 var filter = {
   saleTypeId: '',
   provinceId: '',
@@ -4322,12 +4320,6 @@ var filter = {
   minBathrooms: '',
   minPrice: '',
   maxPrice: ''
-};
-var changeFilterProperty = function changeFilterProperty(obj, event) {
-  var value = event.target.value;
-  obj = _objectSpread(_objectSpread({}, obj), {}, {
-    property: value
-  });
 };
 (0, _helpers.onUpdateField)('select-sale-type', function (event) {
   var value = event.target.value;
@@ -4369,13 +4361,10 @@ var changeFilterProperty = function changeFilterProperty(obj, event) {
   var queryParams = (0, _propertyList2.mapFilterToQueryParams)(filter);
   (0, _propertyList3.clearPropertyRows)();
   (0, _propertyList.getPropertyList)(queryParams).then(function (propertyList) {
-    return loadPropertyList(propertyList);
-  });
-  console.log({
-    filter: filter
+    loadPropertyList(propertyList);
   });
 });
-},{"./property-list.api":"pages/property-list/property-list.api.js","./property-list.mappers":"pages/property-list/property-list.mappers.js","./property-list.helpers":"pages/property-list/property-list.helpers.js","./property-list-constants":"pages/property-list/property-list-constants.js","../../common/helpers":"common/helpers/index.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./property-list.api":"pages/property-list/property-list.api.js","./property-list.mappers":"pages/property-list/property-list.mappers.js","./property-list.helpers":"pages/property-list/property-list.helpers.js","./property-list.constants":"pages/property-list/property-list.constants.js","../../common/helpers":"common/helpers/index.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -4400,7 +4389,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59207" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51820" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
