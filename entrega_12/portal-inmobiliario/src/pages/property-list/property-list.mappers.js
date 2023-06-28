@@ -18,3 +18,33 @@ const mapPropertyFromApiToVM = (property) => {
 const getRoomWord = (rooms) => {
   return rooms > 1 ? 'habitaciones' : 'habitación';
 };
+
+export const mapFilterToQueryParams = (filter) => {
+  let queryParams = '';
+
+  if (filter.saleTypeId) {
+    queryParams = `${queryParams}saleTypeId_like=${filter.saleTypeId}&`;
+  }
+
+  if (filter.provinceId) {
+    queryParams = `${queryParams}provinveId=${filter.provinceId}&`;
+  }
+
+  if (filter.minRooms) {
+    queryParams = `${queryParams}rooms_gte=${filter.minRooms}&`;
+  }
+
+  if (filter.minBathrooms) {
+    queryParams = `${queryParams}bathrooms_gte=${filter.minBathrooms}&`;
+  }
+
+  if (filter.minPrice) {
+    queryParams = `${queryParams}price_gte=${filter.minPrice}&`;
+  }
+
+  if (filter.maxPrice) {
+    queryParams = `${queryParams}price_lte=${filter.maxPrice}&`;
+  }
+
+  return queryParams.slice(0, -1);
+};

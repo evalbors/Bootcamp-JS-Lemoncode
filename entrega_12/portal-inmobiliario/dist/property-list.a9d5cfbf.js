@@ -1857,8 +1857,8 @@ exports.getSaleTypeListUrl = exports.getProvincesListUrl = exports.getPropertyLi
 var _axios = _interopRequireDefault(require("axios"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 var url = "".concat("http://localhost:3000/api", "/properties");
-var getPropertyList = function getPropertyList() {
-  return _axios.default.get(url).then(function (response) {
+var getPropertyList = function getPropertyList(queryParams) {
+  return _axios.default.get("".concat(url, "?").concat(queryParams)).then(function (response) {
     return response.data;
   });
 };
@@ -1883,7 +1883,7 @@ exports.getProvincesListUrl = getProvincesListUrl;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.mapPropertyListFromApiToVM = void 0;
+exports.mapPropertyListFromApiToVM = exports.mapFilterToQueryParams = void 0;
 // para el listado de entidades que es property
 var mapPropertyListFromApiToVM = function mapPropertyListFromApiToVM(propertyList) {
   return propertyList.map(function (property) {
@@ -1906,6 +1906,29 @@ var mapPropertyFromApiToVM = function mapPropertyFromApiToVM(property) {
 var getRoomWord = function getRoomWord(rooms) {
   return rooms > 1 ? 'habitaciones' : 'habitación';
 };
+var mapFilterToQueryParams = function mapFilterToQueryParams(filter) {
+  var queryParams = '';
+  if (filter.saleTypeId) {
+    queryParams = "".concat(queryParams, "saleTypeId_like=").concat(filter.saleTypeId, "&");
+  }
+  if (filter.provinceId) {
+    queryParams = "".concat(queryParams, "provinveId=").concat(filter.provinceId, "&");
+  }
+  if (filter.minRooms) {
+    queryParams = "".concat(queryParams, "rooms_gte=").concat(filter.minRooms, "&");
+  }
+  if (filter.minBathrooms) {
+    queryParams = "".concat(queryParams, "bathrooms_gte=").concat(filter.minBathrooms, "&");
+  }
+  if (filter.minPrice) {
+    queryParams = "".concat(queryParams, "price_gte=").concat(filter.minPrice, "&");
+  }
+  if (filter.maxPrice) {
+    queryParams = "".concat(queryParams, "price_lte=").concat(filter.maxPrice, "&");
+  }
+  return queryParams.slice(0, -1);
+};
+exports.mapFilterToQueryParams = mapFilterToQueryParams;
 },{}],"core/content/img/email_icon.svg":[function(require,module,exports) {
 module.exports = "/email_icon.1ecdcdf8.svg";
 },{}],"core/content/img/telefono_icon.svg":[function(require,module,exports) {
@@ -4343,6 +4366,11 @@ var changeFilterProperty = function changeFilterProperty(obj, event) {
   });
 });
 (0, _helpers.onSubmitForm)('search-button', function () {
+  var queryParams = (0, _propertyList2.mapFilterToQueryParams)(filter);
+  (0, _propertyList3.clearPropertyRows)();
+  (0, _propertyList.getPropertyList)(queryParams).then(function (propertyList) {
+    return loadPropertyList(propertyList);
+  });
   console.log({
     filter: filter
   });

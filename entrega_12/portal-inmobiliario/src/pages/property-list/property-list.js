@@ -3,8 +3,15 @@ import {
   getSaleTypeListUrl,
   getProvincesListUrl,
 } from './property-list.api';
-import { mapPropertyListFromApiToVM } from './property-list.mappers';
-import { addPropertyRows, setOptions } from './property-list.helpers';
+import {
+  mapPropertyListFromApiToVM,
+  mapFilterToQueryParams,
+} from './property-list.mappers';
+import {
+  addPropertyRows,
+  setOptions,
+  clearPropertyRows,
+} from './property-list.helpers';
 import {
   roomOptions,
   bathroomOptions,
@@ -12,6 +19,7 @@ import {
   maxPriceOptions,
 } from './property-list-constants';
 import { onUpdateField, onSubmitForm } from '../../common/helpers';
+
 /* Después del then...
     const propertyList = resultList[0];
     const saleTypeList = resultList[1];
@@ -110,5 +118,10 @@ onUpdateField('select-max-price', (event) => {
 });
 
 onSubmitForm('search-button', () => {
+  const queryParams = mapFilterToQueryParams(filter);
+  clearPropertyRows();
+  getPropertyList(queryParams).then((propertyList) =>
+    loadPropertyList(propertyList)
+  );
   console.log({ filter });
 });
