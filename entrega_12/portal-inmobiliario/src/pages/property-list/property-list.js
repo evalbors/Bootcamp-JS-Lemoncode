@@ -1,13 +1,3 @@
-/* interface Property {
-  id: string;
-  title: string;
-  rooms: string; // 3 habitaciones
-  squareMeter: string; // 136m2
-  notes: string; // Truncate 240 chars
-  price: string; // 120.000 €
-  image: string; // image base64
-  }
- */
 import {
   getPropertyList,
   getSaleTypeList,
@@ -33,12 +23,12 @@ import { onUpdateField, onSubmitForm } from '../../common/helpers';
 Promise.all([getPropertyList(), getSaleTypeList(), getProvinceList()]).then(
   ([propertyList, saleTypeList, provinceList]) => {
     loadPropertyList(propertyList);
-    setOptions(saleTypeList, 'select-sale-type', '¿Qué venta?');
-    setOptions(provinceList, 'select-province', '¿Dónde?');
-    setOptions(roomOptions, 'select-room', '¿Habitaciones?');
-    setOptions(bathroomOptions, 'select-bathroom', '¿Cuartos de baño?');
-    setOptions(minPriceOptions, 'select-min-price', 'Min (EUR)');
-    setOptions(maxPriceOptions, 'select-max-price', 'Max (EUR)');
+    setOptions(saleTypeList, 'select-sale-type', 'Tipo');
+    setOptions(provinceList, 'select-province', 'Provincia');
+    setOptions(roomOptions, 'select-room', 'Habitaciones');
+    setOptions(bathroomOptions, 'select-bathroom', 'Baños');
+    setOptions(minPriceOptions, 'select-min-price', 'Mín. (€)');
+    setOptions(maxPriceOptions, 'select-max-price', 'Máx (€)');
   }
 );
 

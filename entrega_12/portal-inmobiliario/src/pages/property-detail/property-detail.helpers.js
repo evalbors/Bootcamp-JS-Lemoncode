@@ -1,24 +1,26 @@
-const setMainFeatures = property => {
+const setMainFeatures = (property) => {
   const list = document.getElementById('mainFeatures');
 
-  property.mainFeatures.forEach(mainFeature => {
+  property.mainFeatures.forEach((mainFeature) => {
     const li = document.createElement('li');
     li.textContent = mainFeature;
     list.appendChild(li);
   });
 };
 
-const setEquipments = property => {
+const setEquipments = (property) => {
   const list = document.getElementById('equipments');
 
-  property.equipments.forEach(equipment => {
+  property.equipments.forEach((equipment) => {
+    console.log(equipment);
+
     const li = document.createElement('li');
     li.textContent = equipment;
     list.appendChild(li);
   });
 };
 
-const setImages = property => {
+const setImages = (property) => {
   const list = document.getElementById('images');
 
   property.images.forEach((image, id) => {
@@ -75,7 +77,7 @@ const getOverlayImage = (image, id) => {
   return container;
 };
 
-export const setPropertyValues = property => {
+export const setPropertyValues = (property) => {
   const mainImage = document.getElementById('mainImage');
   mainImage.src = property.mainImage;
 
