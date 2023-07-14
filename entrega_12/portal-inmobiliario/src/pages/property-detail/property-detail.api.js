@@ -9,3 +9,6 @@ const equipmentsUrl = `${process.env.BASE_API_URL}/equipments`;
 
 export const getEquipmentsList = () =>
   Axios.get(equipmentsUrl).then(({ data }) => data);
+
+export const sendMessage = (message) =>
+  Axios.post(`${url}/${id}`, message).then(({ data }) => data);
