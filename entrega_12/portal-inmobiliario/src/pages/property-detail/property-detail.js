@@ -4,19 +4,8 @@ import { history } from '../../core/router/history';
 import { setPropertyValues } from './property-detail.helpers';
 
 const params = history.getParams();
-/* const isId = Boolean(params);
-
-if (isId) {
-  getPropertyDetail().then((propertyDetail) => {
-    console.log({ propertyDetail });
-    mapPropertyApiToVm(propertyDetail);
-    console.log({ propertyDetail });
-    setPropertyValues(propertyDetail);
-  });
-} */
 
 let propertyDetail = {
-  id: '',
   title: '',
   notes: '',
   city: '',
@@ -25,24 +14,24 @@ let propertyDetail = {
   bathrooms: '',
   locationUrl: '',
   mainFeatures: '',
-  equipmentIds: '',
+  equipments: '',
   price: '',
   mainImage: '',
   images: '',
 };
 
-/* const loadProperty = getPropertyDetail(params.id).then((detail) => {
-  propertyDetail = mapPropertyApiToVm(detail);
-  setPropertyValues(propertyDetail);
-});
+let equipmentDetail = {
+  id: '',
+  name: '',
+};
 
-const loadEquipment = getEquipmentsList(params.id).then((equipment) => {
-  propertyDetail.equipmentIds = equipment.name;
-}); */
+const loadProperty = (propertyDetail, equipmentDetail) => {
+  const property = mapPropertyApiToVm(propertyDetail, equipmentDetail);
+  setPropertyValues(property);
+};
 
 Promise.all([getPropertyDetail(params.id), getEquipmentsList()]).then(
-  ([propertyDetail, equipmentIds]) => {
-    propertyDetail = mapPropertyApiToVm(propertyDetail);
-    setPropertyValues(propertyDetail);
+  ([propertyDetail, equipmentDetail]) => {
+    loadProperty(propertyDetail, equipmentDetail);
   }
 );

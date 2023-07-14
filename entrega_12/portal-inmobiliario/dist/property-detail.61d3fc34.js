@@ -1879,9 +1879,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.mapPropertyApiToVm = void 0;
-var mapPropertyApiToVm = function mapPropertyApiToVm(property) {
+var mapPropertyApiToVm = function mapPropertyApiToVm(property, equipmentList) {
   return {
-    id: property.id,
     title: property.title,
     notes: property.notes,
     city: property.city,
@@ -1890,15 +1889,23 @@ var mapPropertyApiToVm = function mapPropertyApiToVm(property) {
     bathrooms: "".concat(property.bathrooms, " ").concat(getWord(property.bathrooms, 'habitaciones', 'habitación')),
     locationUrl: property.locationUrl,
     mainFeatures: Array.isArray(property.mainFeatures) ? property.mainFeatures : '',
-    equipmentIds: Array.isArray(property.equipmentIds) ? property.equipmentIds : '',
+    equipments: getEquipments(property, equipmentList),
     price: "".concat(property.price.toLocaleString(), " \u20AC"),
-    mainImage: Array.isArray(property.images) ? property.images[0] : '',
+    mainImage: Array.isArray(property.images) ? property.images[0] : [],
     images: Array.isArray(property.images) ? property.images : []
   };
 };
 exports.mapPropertyApiToVm = mapPropertyApiToVm;
 var getWord = function getWord(element, plural, singular) {
   return element > 1 ? plural : singular;
+};
+var getEquipments = function getEquipments(property, equipmenstList) {
+  var equipments = property.equipmentIds.map(function (equipmentId) {
+    return equipmenstList.find(function (equipment) {
+      return equipment.id === equipmentId;
+    }).name;
+  });
+  return equipments;
 };
 },{}],"../node_modules/has-symbols/shams.js":[function(require,module,exports) {
 'use strict';
@@ -3870,7 +3877,6 @@ var setMainFeatures = function setMainFeatures(property) {
 var setEquipments = function setEquipments(property) {
   var list = document.getElementById('equipments');
   property.equipments.forEach(function (equipment) {
-    console.log(equipment);
     var li = document.createElement('li');
     li.textContent = equipment;
     list.appendChild(li);
@@ -3955,19 +3961,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var params = _history.history.getParams();
-/* const isId = Boolean(params);
-
-if (isId) {
-  getPropertyDetail().then((propertyDetail) => {
-    console.log({ propertyDetail });
-    mapPropertyApiToVm(propertyDetail);
-    console.log({ propertyDetail });
-    setPropertyValues(propertyDetail);
-  });
-} */
-
 var propertyDetail = {
-  id: '',
   title: '',
   notes: '',
   city: '',
@@ -3976,27 +3970,24 @@ var propertyDetail = {
   bathrooms: '',
   locationUrl: '',
   mainFeatures: '',
-  equipmentIds: '',
+  equipments: '',
   price: '',
   mainImage: '',
   images: ''
 };
-
-/* const loadProperty = getPropertyDetail(params.id).then((detail) => {
-  propertyDetail = mapPropertyApiToVm(detail);
-  setPropertyValues(propertyDetail);
-});
-
-const loadEquipment = getEquipmentsList(params.id).then((equipment) => {
-  propertyDetail.equipmentIds = equipment.name;
-}); */
-
+var equipmentDetail = {
+  id: '',
+  name: ''
+};
+var loadProperty = function loadProperty(propertyDetail, equipmentDetail) {
+  var property = (0, _propertyDetail2.mapPropertyApiToVm)(propertyDetail, equipmentDetail);
+  (0, _propertyDetail3.setPropertyValues)(property);
+};
 Promise.all([(0, _propertyDetail.getPropertyDetail)(params.id), (0, _propertyDetail.getEquipmentsList)()]).then(function (_ref) {
   var _ref2 = _slicedToArray(_ref, 2),
     propertyDetail = _ref2[0],
-    equipmentIds = _ref2[1];
-  propertyDetail = (0, _propertyDetail2.mapPropertyApiToVm)(propertyDetail);
-  (0, _propertyDetail3.setPropertyValues)(propertyDetail);
+    equipmentDetail = _ref2[1];
+  loadProperty(propertyDetail, equipmentDetail);
 });
 },{"./property-detail.api":"pages/property-detail/property-detail.api.js","./property-detail.mappers":"pages/property-detail/property-detail.mappers.js","../../core/router/history":"core/router/history.js","./property-detail.helpers":"pages/property-detail/property-detail.helpers.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -4023,7 +4014,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54039" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64788" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
