@@ -6614,20 +6614,23 @@ var _axios = _interopRequireDefault(require("axios"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 var url = "".concat("http://localhost:3000/api", "/account");
 var insertAccount = function insertAccount(account) {
-  return _axios.default.post("".concat(url, "/").concat(account.id), account).then(function (response) {
-    return response.data;
+  return _axios.default.post("".concat(url, "/").concat(account.id), account).then(function (_ref) {
+    var data = _ref.data;
+    return data;
   });
 };
 exports.insertAccount = insertAccount;
 var getAccount = function getAccount(id) {
-  return _axios.default.get("".concat(url, "/").concat(id)).then(function (response) {
-    return response.data;
+  return _axios.default.get("".concat(url, "/").concat(id)).then(function (_ref2) {
+    var data = _ref2.data;
+    return data;
   });
 };
 exports.getAccount = getAccount;
 var updateAccount = function updateAccount(account) {
-  return _axios.default.put("".concat(url, "/").concat(account.id), account).then(function (response) {
-    return response.data;
+  return _axios.default.put("".concat(url, "/").concat(account.id), account).then(function (_ref3) {
+    var data = _ref3.data;
+    return data;
   });
 };
 exports.updateAccount = updateAccount;
@@ -6644,24 +6647,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-/*
-export const mapAccountFromApiToVm = (account) => {
-  return {
-    id: account.id,
-    type: account.type,
-    alias: account.name,
-  };
-};
-
-export const mapAccountFromVmToApi = (account) => {
-  return {
-    id: account.id,
-    type: account.type,
-    name: account.alias,
-  };
-};
-*/
-
 var mapAccountVmToApi = function mapAccountVmToApi(account) {
   return _objectSpread(_objectSpread({}, account), {}, {
     name: account.alias
@@ -6726,9 +6711,6 @@ var onSave = function onSave() {
   return isEditMode ? (0, _account2.updateAccount)(apiAccount) : (0, _account2.insertAccount)(apiAccount);
 };
 (0, _helpers.onSubmitForm)('save-button', function () {
-  console.log({
-    account: account
-  });
   _account.formValidation.validateForm(account).then(function (result) {
     (0, _helpers.onSetFormErrors)(result);
     if (result.succeeded) {
@@ -6763,7 +6745,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58080" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54556" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

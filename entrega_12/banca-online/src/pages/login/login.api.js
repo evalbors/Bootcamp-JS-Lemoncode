@@ -4,10 +4,10 @@ import Axios from 'axios';
 
 const url = `${process.env.BASE_API_URL}/login`;
 
-// get
-// post
-// put
-// delete
+// get: recuperar info
+// post: envía info, introduce datos
+// put: actualizar
+// delete: eliminar
 
 export const isValidLogin = (login) =>
   Axios.post(url, login).then((response) => {

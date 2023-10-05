@@ -27,29 +27,12 @@
       "lastTransaction": "2019-11-15T08:29:04"
     },
     {
-      "iban": "FO35 1827 9250 0940 53",
-      "name": "Nueva",
-      "type": "3",
+      "iban": "VG25 8319 2607 0820 0320 0225",
+      "name": "Prueba",
+      "type": "1",
       "balance": 0,
-      "lastTransaction": "2023-06-26T12:51:07.717Z",
-      "id": "Top1-kD"
-    },
-    {
-      "iban": "MT96 NGVM 0095 4781 398X Y31J 6K97 934",
-      "name": "Otra que añado",
-      "type": "2",
-      "balance": 0,
-      "lastTransaction": "2023-06-26T12:52:44.386Z",
-      "id": "Wxj7t68",
-      "alias": "Otra que añado"
-    },
-    {
-      "iban": "RO69 EAXP 6075 2L60 5072 4B30",
-      "name": "Otra cuenta",
-      "type": "2",
-      "balance": 0,
-      "lastTransaction": "2023-06-27T09:10:29.807Z",
-      "id": "cQvpBya"
+      "lastTransaction": "2023-10-05T19:42:58.093Z",
+      "id": "VD2Ghxu"
     }
   ],
   "movements": [

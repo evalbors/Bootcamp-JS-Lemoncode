@@ -1976,10 +1976,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var url = "".concat("http://localhost:3000/api", "/login");
 
-// get
-// post
-// put
-// delete
+// get: recuperar info
+// post: envía info, introduce datos
+// put: actualizar
+// delete: eliminar
 
 var isValidLogin = function isValidLogin(login) {
   return _axios.default.post(url, login).then(function (response) {
@@ -6717,7 +6717,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58080" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54556" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

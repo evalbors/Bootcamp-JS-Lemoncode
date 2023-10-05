@@ -54,12 +54,9 @@ const onSave = () => {
   const apiAccount = mapAccountVmToApi(account);
   return isEditMode ? updateAccount(apiAccount) : insertAccount(apiAccount);
 };
-
 onSubmitForm('save-button', () => {
-  console.log({ account });
   formValidation.validateForm(account).then((result) => {
     onSetFormErrors(result);
-
     if (result.succeeded) {
       onSave().then(() => {
         history.back();
