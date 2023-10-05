@@ -1,6 +1,6 @@
 import { getMovements } from './movements.api';
 import { addMovementRows } from './movements.helpers';
-// import { mapAccountListApiToVm } from './account-list.mappers';
+import { mapMovementsApiToVm } from './movements.mappers';
 import { onUpdateField } from '../../common/helpers';
 import { history } from '../../core/router';
 
@@ -14,6 +14,7 @@ const setEvents = (movements) => {
 };
 
 getMovements().then((movements) => {
-  addMovementRows(movements);
-  setEvents(movements);
+  const vmMovements = mapMovementsApiToVm(movements);
+  addMovementRows(vmMovements);
+  setEvents(vmMovements);
 });

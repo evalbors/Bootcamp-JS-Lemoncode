@@ -1908,6 +1908,33 @@ var addMovementRows = function addMovementRows(movementList) {
   });
 };
 exports.addMovementRows = addMovementRows;
+},{}],"pages/movements/movements.mappers.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.mapMovementsApiToVm = void 0;
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+var mapMovementApiToVm = function mapMovementApiToVm(movement) {
+  return _objectSpread(_objectSpread({}, movement), {}, {
+    amount: "".concat(movement.amount, " \u20AC"),
+    balance: "".concat(movement.balance, " \u20AC"),
+    transaction: new Date(movement.transaction).toLocaleDateString(),
+    realTransaction: new Date(movement.realTransaction).toLocaleDateString()
+  });
+};
+var mapMovementsApiToVm = function mapMovementsApiToVm(movements) {
+  return Array.isArray(movements) ? movements.map(function (movement) {
+    return mapMovementApiToVm(movement);
+  }) : [];
+};
+exports.mapMovementsApiToVm = mapMovementsApiToVm;
 },{}],"common/helpers/element.helpers.js":[function(require,module,exports) {
 "use strict";
 
@@ -4039,10 +4066,9 @@ Object.keys(_history).forEach(function (key) {
 
 var _movements = require("./movements.api");
 var _movements2 = require("./movements.helpers");
+var _movements3 = require("./movements.mappers");
 var _helpers = require("../../common/helpers");
 var _router = require("../../core/router");
-// import { mapAccountListApiToVm } from './account-list.mappers';
-
 var setEvents = function setEvents(movements) {
   movements.forEach(function (movement) {
     (0, _helpers.onUpdateField)("select-".concat(movement.id), function (event) {
@@ -4052,10 +4078,11 @@ var setEvents = function setEvents(movements) {
   });
 };
 (0, _movements.getMovements)().then(function (movements) {
-  (0, _movements2.addMovementRows)(movements);
-  setEvents(movements);
+  var vmMovements = (0, _movements3.mapMovementsApiToVm)(movements);
+  (0, _movements2.addMovementRows)(vmMovements);
+  setEvents(vmMovements);
 });
-},{"./movements.api":"pages/movements/movements.api.js","./movements.helpers":"pages/movements/movements.helpers.js","../../common/helpers":"common/helpers/index.js","../../core/router":"core/router/index.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./movements.api":"pages/movements/movements.api.js","./movements.helpers":"pages/movements/movements.helpers.js","./movements.mappers":"pages/movements/movements.mappers.js","../../common/helpers":"common/helpers/index.js","../../core/router":"core/router/index.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -4080,7 +4107,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54556" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49709" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
