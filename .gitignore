@@ -3,12 +3,12 @@ _docs
 _playa
 # fuck git
 
-entrega_6.3/2_agenda/app-solved.js
-entrega_9/.parcel.cache
-entrega_9/node_modules
-entrega_12/banca-online/server/node_modules
-entrega_12/banca-online/node_modules
-entrega_12/banca-online/.cache
-entrega_12/portal-inmobiliario/server/node_modules
-entrega_12/portal-inmobiliario/node_modules
-entrega_12/portal-inmobiliario/dist
+entrega6.3_algoritmos_III/2_agenda/app-solved.js
+entrega9_llamadas_asincronas/.parcel.cache
+entrega9_llamadas_asincronas/node_modules
+entrega12_casos_practicos/banca-online/server/node_modules
+entrega12_casos_practicos/banca-online/node_modules
+entrega12_casos_practicos/banca-online/.cache
+entrega12_casos_practicos/portal-inmobiliario/server/node_modules
+entrega12_casos_practicos/portal-inmobiliario/node_modules
+entrega12_casos_practicos/portal-inmobiliario/dist
