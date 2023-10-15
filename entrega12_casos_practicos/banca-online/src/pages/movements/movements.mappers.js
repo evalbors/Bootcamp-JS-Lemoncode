@@ -5,25 +5,17 @@ const mapMovementApiToVm = (movement) => ({
   transaction: new Date(movement.transaction).toLocaleDateString(),
   realTransaction: new Date(movement.realTransaction).toLocaleDateString(),
 });
-
 export const mapMovementsApiToVm = (movements) =>
   Array.isArray(movements)
     ? movements.map((movement) => mapMovementApiToVm(movement))
     : [];
 
-const mapDataAccount = (account) => ({
-  ...account,
+const mapDataAccountToVm = (account) => ({
   iban: account.iban,
   balance: `${account.balance} €`,
   alias: account.name,
 });
-
-
-/*
-export const mapDataAccountToVM = (accountList) => {
+export const mapDataAccountListToVM = (accountList) =>
   Array.isArray(accountList)
-    ? accountList.map(
-        (account) => movement.accountId === id && mapDataAccount(account)
-      )
+    ? movements.map((account) => mapDataAccountToVm(account))
     : [];
-};  */

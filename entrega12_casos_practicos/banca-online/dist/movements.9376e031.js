@@ -1853,7 +1853,7 @@ module.exports = require('./lib/axios');
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getMovements = exports.getAccountList = void 0;
+exports.getMovements = exports.getAccountListData = void 0;
 var _axios = _interopRequireDefault(require("axios"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 var urlMovements = "".concat("http://localhost:3000/api", "/movements");
@@ -1865,13 +1865,13 @@ var getMovements = function getMovements() {
 };
 exports.getMovements = getMovements;
 var urlAccountList = "".concat("http://localhost:3000/api", "/account-list");
-var getAccountList = function getAccountList() {
+var getAccountListData = function getAccountListData() {
   return _axios.default.get(urlAccountList).then(function (_ref2) {
     var data = _ref2.data;
     return data;
   });
 };
-exports.getAccountList = getAccountList;
+exports.getAccountListData = getAccountListData;
 },{"axios":"../node_modules/axios/index.js"}],"pages/movements/movements.helpers.js":[function(require,module,exports) {
 "use strict";
 
@@ -1922,7 +1922,7 @@ exports.addMovementRows = addMovementRows;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.mapMovementsApiToVm = void 0;
+exports.mapMovementsApiToVm = exports.mapDataAccountListToVM = void 0;
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -1943,22 +1943,19 @@ var mapMovementsApiToVm = function mapMovementsApiToVm(movements) {
   }) : [];
 };
 exports.mapMovementsApiToVm = mapMovementsApiToVm;
-var mapDataAccount = function mapDataAccount(account) {
-  return _objectSpread(_objectSpread({}, account), {}, {
+var mapDataAccountToVm = function mapDataAccountToVm(account) {
+  return {
     iban: account.iban,
     balance: "".concat(account.balance, " \u20AC"),
     alias: account.name
-  });
+  };
 };
-
-/*
-export const mapDataAccountToVM = (accountList) => {
-  Array.isArray(accountList)
-    ? accountList.map(
-        (account) => movement.accountId === id && mapDataAccount(account)
-      )
-    : [];
-};  */
+var mapDataAccountListToVM = function mapDataAccountListToVM(accountList) {
+  return Array.isArray(accountList) ? movements.map(function (account) {
+    return mapDataAccountToVm(account);
+  }) : [];
+};
+exports.mapDataAccountListToVM = mapDataAccountListToVM;
 },{}],"common/helpers/element.helpers.js":[function(require,module,exports) {
 "use strict";
 
@@ -4109,38 +4106,26 @@ var setEvents = function setEvents(movements) {
   (0, _movements2.addMovementRows)(vmMovements);
   setEvents(vmMovements);
 });
-
-/* getAccountList().then((accountList) => {
-  const vmAccountList = mapDataAccountToVM(accountList);
-
-  onSetValue(vmAccountList);
+(0, _movements.getAccountListData)().then(function (accountList) {
+  (0, _movements.getMovements)().then(function (movements) {
+    accountList.forEach(function (account) {
+      movements.forEach(function (movement) {
+        if (movement.accountId === account.id) {
+          //console.log(account.alias);
+          (0, _helpers.onSetValues)(data);
+          console.log({
+            data: data
+          });
+        }
+      });
+    });
+  });
 });
- */
-/*
-balance
-alias
-iban
-*/
-
-/*
-let movement = {
-  id: '',
-  description: '',
-  amount: '',
+var data = {
+  iban: '',
   balance: '',
-  transaction: '',
-  realTransaction: '',
-  accountId: '',
+  alias: ''
 };
- */
-
-/* Falta añadir los datos de accountData, y creo que es con onSetValue();
-Ver el seudocódigo en mappers de movements*/
-
-/* onUpdateField('iban', accountData.iban);
-onUpdateField('balance', accountData.balance);
-onUpdateField('alias', accountData.alias);
- */
 },{"./movements.api":"pages/movements/movements.api.js","./movements.helpers":"pages/movements/movements.helpers.js","./movements.mappers":"pages/movements/movements.mappers.js","../../common/helpers":"common/helpers/index.js","../../core/router":"core/router/index.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -4166,7 +4151,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51035" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55560" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

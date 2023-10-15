@@ -1,7 +1,7 @@
-import { getMovements, getAccountList } from './movements.api';
+import { getMovements, getAccountListData } from './movements.api';
 import { addMovementRows } from './movements.helpers';
 import { mapMovementsApiToVm, mapDataAccountToVM } from './movements.mappers';
-import { onUpdateField, onSetValue } from '../../common/helpers';
+import { onUpdateField, onSetValues } from '../../common/helpers';
 import { history } from '../../core/router';
 
 const setEvents = (movements) => {
@@ -20,34 +20,22 @@ getMovements().then((movements) => {
   setEvents(vmMovements);
 });
 
-/* getAccountList().then((accountList) => {
-  const vmAccountList = mapDataAccountToVM(accountList);
-
-  onSetValue(vmAccountList);
+getAccountListData().then((accountList) => {
+  getMovements().then((movements) => {
+    accountList.forEach((account) => {
+      movements.forEach((movement) => {
+        if (movement.accountId === account.id) {
+          //console.log(account.alias);
+          onSetValues(data);
+          console.log({ data });
+        }
+      });
+    });
+  });
 });
- */
-/*
-balance
-alias
-iban
-*/
 
-/*
-let movement = {
-  id: '',
-  description: '',
-  amount: '',
+let data = {
+  iban: '',
   balance: '',
-  transaction: '',
-  realTransaction: '',
-  accountId: '',
+  alias: '',
 };
- */
-
-/* Falta añadir los datos de accountData, y creo que es con onSetValue();
-Ver el seudocódigo en mappers de movements*/
-
-/* onUpdateField('iban', accountData.iban);
-onUpdateField('balance', accountData.balance);
-onUpdateField('alias', accountData.alias);
- */

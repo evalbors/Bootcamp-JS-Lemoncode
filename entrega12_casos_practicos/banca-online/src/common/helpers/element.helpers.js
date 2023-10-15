@@ -1,15 +1,15 @@
 export const onUpdateField = (id, callback) => {
   const element = document.getElementById(id);
-  element.oninput = event => callback(event);
+  element.oninput = (event) => callback(event);
 
   if (element.type !== 'checkbox') {
-    element.onblur = event => callback(event);
+    element.onblur = (event) => callback(event);
   }
 };
 
 export const onSubmitForm = (id, callback) => {
   const element = document.getElementById(id);
-  element.onclick = e => {
+  element.onclick = (e) => {
     e.preventDefault();
     callback();
   };
@@ -25,14 +25,14 @@ export const onSetError = (id, error) => {
   }
 };
 
-const setElementClass = id => {
+const setElementClass = (id) => {
   const element = document.getElementById(id);
   if (element) {
     element.classList.add('error');
   }
 };
 
-const removeElementClass = id => {
+const removeElementClass = (id) => {
   const element = document.getElementById(id);
   if (element) {
     element.classList.remove('error');
@@ -69,6 +69,6 @@ const onSetValue = (id, value) => {
   }
 };
 
-export const onSetValues = values => {
+export const onSetValues = (values) => {
   Object.entries(values).forEach(([key, value]) => onSetValue(key, value));
 };
